@@ -30,9 +30,23 @@
 </head>
 <body>
 <div id="prog"></div>
+
+<!-- Top Announcement Bar for CapCut Pro -->
+<div style="background:linear-gradient(90deg,#0E1F15,#15843A,#0E1F15);color:#fff;padding:9px 14px;text-align:center;font-size:13px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:10px;box-shadow:0 2px 10px rgba(0,0,0,0.15);flex-wrap:wrap">
+  <img src="assets/img/capcut-pro-3d-badge.png" alt="CapCut Pro" style="width:20px;height:20px;object-fit:contain">
+  <span>جديد: احصل على اشتراك <b>CapCut Pro الأصلي</b> في الجزائر مع تفعيل فوري لكافة ميزات الـ AI والضمان الكامل</span>
+  <a href="/capcut" style="color:#FFF;background:rgba(255,255,255,0.22);padding:2px 12px;border-radius:99px;text-decoration:none;font-size:12px;border:1px solid rgba(255,255,255,0.45);font-weight:700">اكتشف العروض ➔</a>
+</div>
+
 <header class="hd" id="hd"><div class="wrap">
   <a class="brand" href="#top" style="padding:0"><span class="logo">1A</span><span><b>ONE FOR ALL</b><small data-i="tagline"></small></span></a>
-  <nav aria-label="main"><a href="#services" data-i="n_services"></a><a href="#work" data-i="n_work"></a><a href="#how" data-i="n_how"></a><a href="#faq" data-i="n_faq"></a></nav>
+  <nav aria-label="main">
+    <a href="/capcut" style="color:var(--green-deep);font-weight:700">CapCut Pro ✨</a>
+    <a href="#services" data-i="n_services"></a>
+    <a href="#work" data-i="n_work"></a>
+    <a href="#how" data-i="n_how"></a>
+    <a href="#faq" data-i="n_faq"></a>
+  </nav>
   <span class="sp"></span>
   <span id="lsw"></span>
   <a class="btn ghost dsk" href="app.html#/login" data-i="login"></a>
@@ -40,6 +54,7 @@
   <button class="btn icon burger" id="burger" aria-label="menu" aria-expanded="false" aria-controls="drawer"><span></span><span></span><span></span></button>
 </div></header>
 <div class="drawer" id="drawer">
+  <a href="/capcut" style="color:var(--green-deep);font-weight:700;display:flex;align-items:center;gap:8px"><img src="assets/img/capcut-pro-3d-badge.png" style="width:18px;height:18px;object-fit:contain"> CapCut Pro الجزائر</a>
   <a href="#services" data-i="n_services"></a><a href="#work" data-i="n_work"></a><a href="#how" data-i="n_how"></a><a href="#faq" data-i="n_faq"></a>
   <div class="row" style="margin-top:8px"><a class="btn grow" href="app.html#/login" data-i="login"></a><a class="btn pri grow" href="app.html#/register" data-i="register"></a></div>
 </div>
@@ -120,5 +135,49 @@
 <script src="assets/home-pages.js?v=1"></script>
 <script src="assets/motion.js?v=1"></script>
 <script src="assets/tracker.js" defer></script>
+
+<!-- Social Proof Live Toast -->
+<div id="ofa-social-proof" style="position:fixed;bottom:24px;left:24px;z-index:99;background:rgba(255,255,255,0.92);backdrop-filter:blur(12px);border:1px solid var(--line);border-radius:16px;padding:12px 16px;display:flex;align-items:center;gap:12px;box-shadow:0 12px 36px rgba(0,0,0,0.12);max-width:320px;transform:translateY(120px);opacity:0;transition:all 0.5s cubic-bezier(0.16,1,0.3,1);pointer-events:none">
+  <span style="width:36px;height:36px;border-radius:10px;background:rgba(34,176,75,0.15);display:grid;place-items:center;font-size:18px">⚡</span>
+  <div>
+    <b id="ofa-sp-title" style="font-size:13px;color:var(--ink);display:block">طلب جديد: باقة CapCut Pro VIP</b>
+    <span id="ofa-sp-sub" style="font-size:11.5px;color:var(--muted)">من وهران · منذ 3 دقائق</span>
+  </div>
+</div>
+<script>
+(function(){
+  var items = [
+    { title: "طلب جديد: باقة CapCut Pro VIP (سنة)", loc: "وهران", ago: "منذ 3 دقائق" },
+    { title: "طلب فيديو إعلاني بالذكاء الاصطناعي", loc: "الجزائر العاصمة", ago: "منذ 11 دقيقة" },
+    { title: "اشتراك CapCut Pro (باقة 6 أشهر)", loc: "قسنطينة", ago: "منذ 18 دقيقة" },
+    { title: "تصميم متجر إلكتروني احترافي", loc: "سطيف", ago: "منذ 35 دقيقة" },
+    { title: "اشتراك CapCut Pro (باقة 3 أشهر)", loc: "باتنة", ago: "منذ 42 دقيقة" }
+  ];
+  var idx = 0;
+  var box = document.getElementById('ofa-social-proof');
+  var title = document.getElementById('ofa-sp-title');
+  var sub = document.getElementById('ofa-sp-sub');
+  if (!box || !title || !sub) return;
+
+  function showNext() {
+    var cur = items[idx % items.length];
+    idx++;
+    title.textContent = cur.title;
+    sub.textContent = 'من ' + cur.loc + ' · ' + cur.ago;
+    box.style.transform = 'translateY(0)';
+    box.style.opacity = '1';
+
+    setTimeout(function() {
+      box.style.transform = 'translateY(120px)';
+      box.style.opacity = '0';
+    }, 5500);
+  }
+
+  setTimeout(function() {
+    showNext();
+    setInterval(showNext, 45000);
+  }, 5000);
+})();
+</script>
 </body>
 </html>

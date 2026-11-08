@@ -222,6 +222,60 @@
     }
   }
 
+  // Conversion event tracking
+  window.ofaTrackConversion = function (eventName, planName, price) {
+    try {
+      var convPayload = {
+        page: page,
+        event_name: eventName || 'whatsapp_click',
+        plan_name: planName || 'غير محدد',
+        price: price || 0,
+        visitor_id: visitorId,
+        session_id: sessionId,
+        referrer_domain: refDomain,
+        device_type: deviceType,
+        browser: browser,
+        city: city
+      };
+
+      var convUrl = SB_URL + '/rest/v1/conversion_events';
+      var convBody = JSON.stringify(convPayload);
+
+      if (navigator.sendBeacon) {
+        var blob = new Blob([convBody], { type: 'application/json' });
+        navigator.sendBeacon(convUrl, blob);
+      } else {
+        fetch(convUrl, {
+          method: 'POST',
+          headers: {
+            'apikey': SB_KEY,
+            'Authorization': 'Bearer ' + SB_KEY,
+            'Content-Type': 'application/json'
+          },
+          body: convBody,
+          keepalive: true
+        }).catch(function () {});
+      }
+    } catch (e) {}
+  };
+
+  // Automatically track clicks on WhatsApp conversion buttons
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest('a');
+    if (!a) return;
+    var href = a.getAttribute('href') || '';
+    if (href.indexOf('wa.me') >= 0 || href.indexOf('whatsapp.com') >= 0) {
+      var plan = 'طلب واتساب عام';
+      var price = 0;
+      if (/1,?500/i.test(href) || /باقة شهر/i.test(href)) { plan = 'باقة شهر (1,500 دج)'; price = 1500; }
+      else if (/2,?500/i.test(href) || /3 أشهر/i.test(href)) { plan = 'باقة 3 أشهر (2,500 دج)'; price = 2500; }
+      else if (/4,?500/i.test(href) || /6 أشهر/i.test(href)) { plan = 'باقة 6 أشهر (4,500 دج)'; price = 4500; }
+      else if (/8,?000/i.test(href) || /عام كامل|VIP/i.test(href)) { plan = 'باقة عام كامل VIP (8,000 دج)'; price = 8000; }
+      else if (/ضمان/i.test(href)) { plan = 'استفسار عن الضمان'; }
+      window.ofaTrackConversion('whatsapp_click', plan, price);
+    }
+  }, true);
+
   // Trigger initial
   if (document.readyState === 'complete' || document.readyState === 'interactive') {
     sendInitial();
