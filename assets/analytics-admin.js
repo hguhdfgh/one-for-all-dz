@@ -1,10 +1,10 @@
-/* analytics-admin.js — Comprehensive Page Analytics & Conversion Dashboard for ONE FOR ALL */
+/* analytics-admin.js (v2.0) — 360° Live Radar, Funnel, Geo & Conversion Intelligence */
 (function () {
   function patch() {
     var A = window.Admin;
     if (!A) return false;
-    if (A._analytics) return true;
-    A._analytics = true;
+    if (A._analytics_v2) return true;
+    A._analytics_v2 = true;
 
     // Add Analytics to Nav
     var nav0 = A.nav.bind(A);
@@ -15,7 +15,7 @@
         k: 'analytics',
         h: '#/a/analytics',
         i: 'chart',
-        l: 'تحليلات الصفحات'
+        l: 'تحليلات 360° والرادار'
       });
       return n;
     };
@@ -67,12 +67,42 @@
       if (disp) disp.value = full;
     };
 
+    // Export CSV Helper
+    window.ofaExportConversionsCSV = function (convs) {
+      if (!convs || !convs.length) return toast('لا توجد بيانات لتصديرها');
+      var headers = ['ID', 'Date', 'Page', 'Plan', 'Price (DZD)', 'Decision Latency (sec)', 'Wilaya', 'Source', 'Device', 'Browser'];
+      var rows = convs.map(function (c) {
+        return [
+          c.id,
+          new Date(c.created_at).toLocaleString('ar-DZ'),
+          c.page,
+          '"' + (c.plan_name || '').replace(/"/g, '""') + '"',
+          c.price || 0,
+          c.decision_latency_sec || 0,
+          '"' + (c.wilaya || c.city || 'الجزائر').replace(/"/g, '""') + '"',
+          '"' + (c.referrer_domain || 'مباشر').replace(/"/g, '""') + '"',
+          c.device_type,
+          '"' + (c.browser || '').replace(/"/g, '""') + '"'
+        ].join(',');
+      });
+      var csvContent = '\uFEFF' + headers.join(',') + '\n' + rows.join('\n');
+      var blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+      var url = URL.createObjectURL(blob);
+      var link = document.createElement('a');
+      link.setAttribute('href', url);
+      link.setAttribute('download', 'conversions_one_for_all_' + new Date().toISOString().slice(0, 10) + '.csv');
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      toast('تم تحميل ملف التقرير بنجاح! 📥');
+    };
+
     // Analytics View Implementation
     A.analyticsView = async function (filterPage) {
       var timeRange = sessionStorage.getItem('ofa_an_time') || '7d';
       var selectedPage = filterPage || sessionStorage.getItem('ofa_an_page') || 'all';
 
-      var pg = A.sh('analytics', 'تحليلات الصفحات ومعدل التحويل', '<div class="spin"></div>');
+      var pg = A.sh('analytics', 'تحليلات 360° والرادار اللحظي', '<div class="spin"></div>');
 
       // Date cutoff
       var now = Date.now();
@@ -86,14 +116,19 @@
         cutoff = new Date(0).toISOString();
       }
 
-      // Fetch views and conversion events in parallel
+      // Live Pulse active threshold (last 25 seconds)
+      var activeCutoff = new Date(now - 25000).toISOString();
+
+      // Fetch views and conversions in parallel
       var results = await Promise.all([
         sb.from('page_views').select('*').gte('created_at', cutoff).order('created_at', { ascending: false }).limit(3000),
-        sb.from('conversion_events').select('*').gte('created_at', cutoff).order('created_at', { ascending: false }).limit(1000)
+        sb.from('conversion_events').select('*').gte('created_at', cutoff).order('created_at', { ascending: false }).limit(1000),
+        sb.from('page_views').select('*').gte('last_seen_at', activeCutoff).order('last_seen_at', { ascending: false })
       ]);
 
       var allViews = results[0].data || [];
       var allConvs = results[1].data || [];
+      var liveVisitors = results[2].data || [];
 
       // Extract unique pages for dropdown filter
       var pagesMap = {};
@@ -106,6 +141,7 @@
       // Apply page filter
       var views = selectedPage === 'all' ? allViews : allViews.filter(function (v) { return v.page === selectedPage; });
       var convs = selectedPage === 'all' ? allConvs : allConvs.filter(function (c) { return c.page === selectedPage; });
+      var liveForPage = selectedPage === 'all' ? liveVisitors : liveVisitors.filter(function (l) { return l.page === selectedPage; });
 
       // KPIs
       var totalViews = views.length;
@@ -122,6 +158,22 @@
       var mobileCount = views.filter(function (v) { return v.device_type === 'mobile'; }).length;
       var mobilePct = totalViews ? Math.round((mobileCount / totalViews) * 100) : 0;
 
+      // Decision latency average
+      var convLatencies = convs.map(function (c) { return c.decision_latency_sec; }).filter(function (n) { return n && n > 0; });
+      var avgLatencySec = convLatencies.length ? Math.round(convLatencies.reduce(function (a, b) { return a + b; }, 0) / convLatencies.length) : 0;
+      var avgLatencyText = avgLatencySec > 60 ? (Math.floor(avgLatencySec / 60) + ' د و ' + (avgLatencySec % 60) + ' ث') : (avgLatencySec ? (avgLatencySec + ' ث') : '—');
+
+      // Funnel Milestones
+      var reachedHero = views.length;
+      var reachedOffers = views.filter(function (v) { return (v.scroll_depth || 0) >= 25; }).length;
+      var inspectedDetails = views.filter(function (v) { return (v.scroll_depth || 0) >= 50; }).length;
+      var clickedCTA = convs.length;
+
+      var f1 = reachedHero ? 100 : 0;
+      var f2 = reachedHero ? Math.round((reachedOffers / reachedHero) * 100) : 0;
+      var f3 = reachedHero ? Math.round((inspectedDetails / reachedHero) * 100) : 0;
+      var f4 = reachedHero ? Math.round((clickedCTA / reachedHero) * 100) : 0;
+
       // Aggregations helper
       function aggregate(list, key, labelFn) {
         var counts = {};
@@ -137,10 +189,10 @@
       }
 
       var sources = aggregate(views, 'referrer_domain');
-      var devices = aggregate(views, 'device_type', function (k) { return k === 'mobile' ? 'هاتف (Mobile)' : (k === 'tablet' ? 'لوحي (Tablet)' : 'حاسوب (Desktop)'); });
+      var devices = aggregate(views, 'device_model');
       var browsers = aggregate(views, 'browser');
-      var operatingSystems = aggregate(views, 'os');
-      var cities = aggregate(views, 'city');
+      var wilayas = aggregate(views, 'wilaya');
+      var isps = aggregate(views, 'isp');
       var planConvs = aggregate(convs, 'plan_name');
 
       // Conversion rate by traffic source
@@ -156,42 +208,6 @@
           cr: uVis ? ((sConvs.length / uVis) * 100).toFixed(1) : 0
         };
       });
-
-      // Pages Breakdown
-      var pageStats = {};
-      allViews.forEach(function (v) {
-        var p = v.page || '/';
-        if (!pageStats[p]) {
-          pageStats[p] = { page: p, views: 0, visitors: new Set(), duration: 0, mobile: 0, convs: 0, topSource: {} };
-        }
-        pageStats[p].views++;
-        if (v.visitor_id) pageStats[p].visitors.add(v.visitor_id);
-        pageStats[p].duration += (v.duration_sec || 0);
-        if (v.device_type === 'mobile') pageStats[p].mobile++;
-        var src = v.referrer_domain || 'مباشر';
-        pageStats[p].topSource[src] = (pageStats[p].topSource[src] || 0) + 1;
-      });
-
-      allConvs.forEach(function (c) {
-        var p = c.page || '/';
-        if (pageStats[p]) pageStats[p].convs++;
-      });
-
-      var pageList = Object.keys(pageStats).map(function (p) {
-        var st = pageStats[p];
-        var bestSrc = Object.keys(st.topSource).sort(function (a, b) { return st.topSource[b] - st.topSource[a]; })[0] || '—';
-        var cr = st.visitors.size ? ((st.convs / st.visitors.size) * 100).toFixed(1) : 0;
-        return {
-          page: p,
-          views: st.views,
-          unique: st.visitors.size,
-          convs: st.convs,
-          cr: cr,
-          avgSec: st.views ? Math.round(st.duration / st.views) : 0,
-          mobilePct: st.views ? Math.round((st.mobile / st.views) * 100) : 0,
-          topSource: bestSrc
-        };
-      }).sort(function (a, b) { return b.views - a.views; });
 
       function timeAgo(iso) {
         if (!iso) return '—';
@@ -225,12 +241,17 @@
 
       // HTML Render
       pg.innerHTML = `
-        <div class="row between" style="margin-bottom:16px;flex-wrap:wrap;gap:10px">
+        <div class="row between" style="margin-bottom:16px;flex-wrap:wrap;gap:12px">
           <div>
-            <h2 style="margin:0 0 4px 0;font-size:22px;display:flex;align-items:center;gap:8px">
-              ${ic('chart')} تحليلات الصفحات ومعدل التحويل (CR%)
-            </h2>
-            <div class="small muted">تتبع حي للمشاهدات، نقرات الواتساب، والتحويلات لكل مصدر تسويقي.</div>
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px">
+              <h2 style="margin:0;font-size:22px;display:flex;align-items:center;gap:8px">
+                ${ic('chart')} تحليلات 360° والرادار اللحظي
+              </h2>
+              <span class="chip" style="background:#DCFCE7;color:#15843A;font-weight:700;animation:pulse 2s infinite">
+                🟢 ${liveForPage.length} متصلين الآن
+              </span>
+            </div>
+            <div class="small muted">تتبع حي ومفصل لرحلة الزائر، قمع التحويل، ولايات الجزائر، وشبكات الاتصال.</div>
           </div>
           <div class="row" style="gap:8px;flex-wrap:wrap">
             <select class="in" id="an_page_sel" style="max-width:240px;font-size:13px" onchange="sessionStorage.setItem('ofa_an_page', this.value); Admin.analyticsView(this.value)">
@@ -246,54 +267,28 @@
               <button class="${timeRange === 'all' ? 'on' : ''}" onclick="sessionStorage.setItem('ofa_an_time','all');Admin.analyticsView('${selectedPage}')">الكل</button>
             </div>
             <button class="btn icon sm ghost" title="تحديث" onclick="Admin.analyticsView('${selectedPage}')">${ic('clock')}</button>
+            <button class="btn sm ghost" onclick="ofaExportConversionsCSV(${esc(JSON.stringify(convs))})" title="تصدير ملف Excel">${ic('download')} تصدير CSV</button>
           </div>
         </div>
 
-        <!-- 5 KPI Cards -->
-        <div class="grid g5" style="margin-bottom:18px;display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px">
-          <div class="card kpi">
-            <span>إجمالي المشاهدات</span>
-            <b class="num" style="font-size:26px;color:var(--green)">${totalViews}</b>
-            <div class="tiny muted">${selectedPage === 'all' ? 'عبر كامل الموقع' : pageDisplayName(selectedPage)}</div>
+        <!-- Real-time Live Radar Strip (If visitors are active now) -->
+        ${liveForPage.length ? `
+        <div class="card" style="margin-bottom:18px;background:linear-gradient(135deg,#0E1F15,#15843A);color:#fff;border:0;box-shadow:0 12px 30px rgba(21,132,58,0.25)">
+          <div class="row between" style="margin-bottom:10px">
+            <div style="display:flex;align-items:center;gap:10px">
+              <span style="display:inline-block;width:12px;height:12px;border-radius:50%;background:#3DC163;box-shadow:0 0 12px #3DC163;animation:pulse 1.5s infinite"></span>
+              <b style="font-size:15px">رادار الحضور الحي: ${liveForPage.length} أشخاص يتصفحون الموقع في هذه الثانية!</b>
+            </div>
+            <span class="chip" style="background:rgba(255,255,255,0.2);color:#fff">مباشر</span>
           </div>
-          <div class="card kpi">
-            <span>الزوار الفريدون</span>
-            <b class="num" style="font-size:26px">${uniqueVisitors}</b>
-            <div class="tiny muted">${uniqueSessions} جلسة نشطة</div>
-          </div>
-          <div class="card kpi" style="border-inline-start:3px solid #22B04B">
-            <span>نقرات الواتساب (تحويلات)</span>
-            <b class="num" style="font-size:26px;color:#22B04B">🔥 ${totalConversions}</b>
-            <div class="tiny muted">معدل التحويل: <b>${conversionRate}%</b></div>
-          </div>
-          <div class="card kpi">
-            <span>قيمة الطلبات المتوقعة</span>
-            <b class="num" style="font-size:24px;color:#0B5E27">${money(pipelineValue)}</b>
-            <div class="tiny muted">إجمالي الباقات المختارة</div>
-          </div>
-          <div class="card kpi">
-            <span>متوسط وقت البقاء</span>
-            <b class="num" style="font-size:24px">${avgDurationText}</b>
-            <div class="tiny muted">${mobilePct}% من الهواتف</div>
-          </div>
-        </div>
-
-        <!-- Conversion Breakdown by Plan (If CapCut or All) -->
-        ${planConvs.length ? `
-        <div class="card" style="margin-bottom:18px">
-          <div class="row between" style="margin-bottom:12px">
-            <h3 style="margin:0;font-size:16px">🎯 تفصيل التحويلات حسب الباقة (الطلبات الأكثر طلباً)</h3>
-            <span class="chip">${totalConversions} طلب نقر</span>
-          </div>
-          <div class="row" style="gap:12px;flex-wrap:wrap">
-            ${planConvs.map(function (pl) {
+          <div class="row" style="gap:10px;overflow-x:auto;padding-bottom:4px">
+            ${liveForPage.map(function (lv) {
               return `
-                <div style="flex:1;min-width:180px;background:var(--surface-2);border-radius:14px;padding:12px 14px">
-                  <div class="row between"><b class="small">${esc(pl.label)}</b><span class="chip pri">${pl.count}</span></div>
-                  <div style="background:rgba(0,0,0,0.08);height:6px;border-radius:99px;margin:8px 0;overflow:hidden">
-                    <div style="background:var(--green);height:100%;width:${pl.pct}%"></div>
+                <div style="background:rgba(255,255,255,0.14);backdrop-filter:blur(10px);border-radius:12px;padding:8px 12px;min-width:210px;flex:1">
+                  <div class="row between"><b style="font-size:13px">${esc(pageDisplayName(lv.page))}</b><span class="tiny" style="color:#C9F0D5">${lv.duration_sec || 0} ثانية</span></div>
+                  <div class="tiny" style="color:rgba(255,255,255,0.85);margin-top:2px">
+                    📍 ${esc(lv.wilaya || lv.city || 'الجزائر')} · 📱 ${esc(lv.device_model || lv.browser || '')}
                   </div>
-                  <div class="tiny muted">${pl.pct}% من إجمالي التحويلات</div>
                 </div>
               `;
             }).join('')}
@@ -301,7 +296,155 @@
         </div>
         ` : ''}
 
-        <!-- Traffic Sources & Conversion Rate (CR%) by Source -->
+        <!-- 6 Main KPI Cards -->
+        <div class="grid g6" style="margin-bottom:18px;display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px">
+          <div class="card kpi">
+            <span>إجمالي المشاهدات</span>
+            <b class="num" style="font-size:24px;color:var(--green)">${totalViews}</b>
+            <div class="tiny muted">${selectedPage === 'all' ? 'كامل الموقع' : pageDisplayName(selectedPage)}</div>
+          </div>
+          <div class="card kpi">
+            <span>الزوار الفريدون</span>
+            <b class="num" style="font-size:24px">${uniqueVisitors}</b>
+            <div class="tiny muted">${uniqueSessions} جلسة نشطة</div>
+          </div>
+          <div class="card kpi" style="border-inline-start:3px solid #22B04B">
+            <span>تحويلات الواتساب</span>
+            <b class="num" style="font-size:24px;color:#22B04B">🔥 ${totalConversions}</b>
+            <div class="tiny muted">معدل التحويل: <b>${conversionRate}%</b></div>
+          </div>
+          <div class="card kpi">
+            <span>قيمة الطلبات</span>
+            <b class="num" style="font-size:22px;color:#0B5E27">${money(pipelineValue)}</b>
+            <div class="tiny muted">إجمالي الباقات</div>
+          </div>
+          <div class="card kpi">
+            <span>سرعة اتخاذ القرار</span>
+            <b class="num" style="font-size:22px">${avgLatencyText}</b>
+            <div class="tiny muted">متوسط زمن الشراء</div>
+          </div>
+          <div class="card kpi">
+            <span>نسبة الهاتف</span>
+            <b class="num" style="font-size:22px;color:#1877F2">${mobilePct}%</b>
+            <div class="tiny muted">${avgDurationText} متوسط التصفح</div>
+          </div>
+        </div>
+
+        <!-- Sales & Behavioral Funnel (قمع التحويل وسلوك التصفح) -->
+        <div class="card" style="margin-bottom:18px">
+          <div class="row between" style="margin-bottom:14px">
+            <div>
+              <h3 style="margin:0 0 2px 0;font-size:16px">📉 قمع التحويل ومراحل الزائر (Conversion Funnel)</h3>
+              <div class="tiny muted">معرفة أين يغادر الزائر بالتحديد بين فتح الصفحة والنزول للعروض ونقر الواتساب:</div>
+            </div>
+            <span class="chip pri">سلوك الزبائن</span>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:12px">
+            <!-- Stage 1 -->
+            <div>
+              <div class="row between small" style="margin-bottom:4px">
+                <span>1. فتح الصفحة ومشاهدة الهيرو (Pageview)</span>
+                <b>${reachedHero} زائر (${f1}%)</b>
+              </div>
+              <div style="background:var(--surface-2);height:10px;border-radius:99px;overflow:hidden">
+                <div style="background:#22B04B;height:100%;width:${f1}%;border-radius:99px"></div>
+              </div>
+            </div>
+
+            <!-- Stage 2 -->
+            <div>
+              <div class="row between small" style="margin-bottom:4px">
+                <span>2. تجاوز الهيرو والتمرير نحو العروض (Scroll >= 25%)</span>
+                <b>${reachedOffers} زائر (${f2}%)</b>
+              </div>
+              <div style="background:var(--surface-2);height:10px;border-radius:99px;overflow:hidden">
+                <div style="background:#3DC163;height:100%;width:${f2}%;border-radius:99px"></div>
+              </div>
+            </div>
+
+            <!-- Stage 3 -->
+            <div>
+              <div class="row between small" style="margin-bottom:4px">
+                <span>3. قراءة تفاصيل الضمان والذكاء الاصطناعي (Scroll >= 50%)</span>
+                <b>${inspectedDetails} زائر (${f3}%)</b>
+              </div>
+              <div style="background:var(--surface-2);height:10px;border-radius:99px;overflow:hidden">
+                <div style="background:#15843A;height:100%;width:${f3}%;border-radius:99px"></div>
+              </div>
+            </div>
+
+            <!-- Stage 4 -->
+            <div>
+              <div class="row between small" style="margin-bottom:4px">
+                <span style="color:#0B5E27;font-weight:700">4. الضغط على زر الواتساب واختيار الباقة (Conversion Click) 🔥</span>
+                <b style="color:#0B5E27">${clickedCTA} تحويل (${f4}%)</b>
+              </div>
+              <div style="background:var(--surface-2);height:10px;border-radius:99px;overflow:hidden">
+                <div style="background:#0FAA60;height:100%;width:${f4}%;border-radius:99px;box-shadow:0 0 8px #0FAA60"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Algerian Wilayas & Telecom Operators -->
+        <div class="grid g2" style="margin-bottom:18px;align-items:start">
+          
+          <!-- Algerian Wilayas Ranking -->
+          <div class="card">
+            <div class="row between" style="margin-bottom:12px">
+              <h3 style="margin:0;font-size:15px">🇩🇿 ترتيب ولايات الجزائر الأكثر زيارة وطلباً</h3>
+              <span class="chip">${wilayas.length} ولايات</span>
+            </div>
+            <div class="list">
+              ${wilayas.slice(0, 8).map(function (w, idx) {
+                return `
+                  <div class="li" style="cursor:default;padding:6px 0">
+                    <span class="chip" style="font-size:11px;min-width:24px;text-align:center">${idx + 1}</span>
+                    <span class="small"><b>${esc(w.label)}</b></span>
+                    <span class="grow"></span>
+                    <b class="num small">${w.count}</b>
+                    <span class="tiny faint">(${w.pct}%)</span>
+                  </div>
+                `;
+              }).join('')}
+              ${!wilayas.length ? '<div class="empty">لا توجد بيانات ولايات كافية بعد</div>' : ''}
+            </div>
+          </div>
+
+          <!-- Telecom Operators & Device Models -->
+          <div class="card">
+            <div class="row between" style="margin-bottom:12px">
+              <h3 style="margin:0;font-size:15px">📶 شبكات الاتصال ونوع الهواتف في الجزائر</h3>
+              <span class="chip">مواصفات الجمهور</span>
+            </div>
+
+            <b class="small" style="display:block;margin:6px 0">شبكة الاتصال (المتعامل):</b>
+            <div class="row" style="gap:6px;margin-bottom:14px;flex-wrap:wrap">
+              ${isps.map(function (isp) {
+                var bg = /mobilis/i.test(isp.key) ? 'background:#00A859;color:#fff' : (/djezzy/i.test(isp.key) ? 'background:#E30613;color:#fff' : (/ooredoo/i.test(isp.key) ? 'background:#ED1C24;color:#fff' : 'background:var(--surface-2);color:var(--ink)'));
+                return '<span class="chip" style="' + bg + ';font-size:12px;font-weight:600">' + esc(isp.label) + ': ' + isp.count + ' (' + isp.pct + '%)</span>';
+              }).join('')}
+            </div>
+
+            <b class="small" style="display:block;margin:6px 0">أجهزة وموديلات الزوار:</b>
+            <div class="list">
+              ${devices.slice(0, 5).map(function (d) {
+                return `
+                  <div class="li" style="cursor:default;padding:6px 0">
+                    <span class="small">${esc(d.label)}</span>
+                    <span class="grow"></span>
+                    <b class="num small">${d.count}</b>
+                    <span class="tiny faint">(${d.pct}%)</span>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Sources, UTM & Plan Breakdown -->
         <div class="grid g2" style="margin-bottom:18px;align-items:start">
           
           <!-- Sources & Conversion Power -->
@@ -334,88 +477,30 @@
             </div>
           </div>
 
-          <!-- Devices, Browsers & OS -->
+          <!-- Plans Conversion Breakdown -->
           <div class="card">
             <div class="row between" style="margin-bottom:12px">
-              <h3 style="margin:0;font-size:15px">${ic('box')} نوع الأجهزة والمتصفحات</h3>
-              <span class="chip">${devices.length} أنواع</span>
+              <h3 style="margin:0;font-size:15px">🎯 الباقات الأكثر طلباً</h3>
+              <span class="chip pri">${totalConversions} تحويل</span>
             </div>
-            
-            <b class="small" style="display:block;margin:6px 0">الأجهزة:</b>
-            <div class="row" style="gap:8px;margin-bottom:12px;flex-wrap:wrap">
-              ${devices.map(function (d) {
-                return '<span class="chip" style="font-size:12px"><b>' + esc(d.label) + '</b>: ' + d.count + ' (' + d.pct + '%)</span>';
-              }).join('')}
-            </div>
-
-            <b class="small" style="display:block;margin:6px 0">المتصفحات (بما فيها تطبيقات التواصل):</b>
-            <div class="list" style="margin-bottom:12px">
-              ${browsers.slice(0, 5).map(function (b) {
+            <div class="list">
+              ${planConvs.length ? planConvs.map(function (pl) {
                 return `
-                  <div class="li" style="cursor:default;padding:6px 0">
-                    <span class="small">${esc(b.label)}</span>
-                    <span class="grow"></span>
-                    <b class="num small">${b.count}</b>
-                    <span class="tiny faint">(${b.pct}%)</span>
+                  <div class="li" style="cursor:default;flex-direction:column;align-items:stretch;gap:6px">
+                    <div class="row between">
+                      <b class="small">${esc(pl.label)}</b>
+                      <span class="chip pri">${pl.count} طلب (${pl.pct}%)</span>
+                    </div>
+                    <div style="background:var(--surface-2);height:6px;border-radius:99px;overflow:hidden">
+                      <div style="background:var(--green);height:100%;width:${pl.pct}%;border-radius:99px"></div>
+                    </div>
                   </div>
                 `;
-              }).join('')}
-            </div>
-
-            <b class="small" style="display:block;margin:6px 0">نظام التشغيل (OS):</b>
-            <div class="row" style="gap:6px;flex-wrap:wrap">
-              ${operatingSystems.map(function (o) {
-                return '<span class="chip" style="font-size:11px">' + esc(o.label) + ' (' + o.count + ')</span>';
-              }).join('')}
+              }).join('') : '<div class="empty">لا توجد طلبات مسجلة بعد</div>'}
             </div>
           </div>
 
         </div>
-
-        <!-- Pages Comparison Table -->
-        ${selectedPage === 'all' ? `
-        <div class="card" style="margin-bottom:18px">
-          <div class="row between" style="margin-bottom:12px">
-            <h3 style="margin:0;font-size:16px">${ic('grid')} أداء الصفحات الفردية والتحويلات</h3>
-            <span class="chip">${pageList.length} صفحات</span>
-          </div>
-          <div style="overflow-x:auto">
-            <table class="table" style="width:100%;text-align:start;font-size:13.5px;border-collapse:collapse">
-              <thead>
-                <tr style="border-bottom:1px solid var(--line);color:var(--muted)">
-                  <th style="padding:8px 10px">الصفحة</th>
-                  <th style="padding:8px 10px">الزيارات</th>
-                  <th style="padding:8px 10px">الزوار الفريدون</th>
-                  <th style="padding:8px 10px">التحويلات</th>
-                  <th style="padding:8px 10px">معدل التحويل (CR)</th>
-                  <th style="padding:8px 10px">أهم مصدر</th>
-                  <th style="padding:8px 10px">إجراء</th>
-                </tr>
-              </thead>
-              <tbody>
-                ${pageList.map(function (p) {
-                  return `
-                    <tr style="border-bottom:1px solid var(--line)">
-                      <td style="padding:10px">
-                        <b>${esc(pageDisplayName(p.page))}</b>
-                        <div class="tiny faint ltr">${esc(p.page)}</div>
-                      </td>
-                      <td style="padding:10px"><b class="num">${p.views}</b></td>
-                      <td style="padding:10px">${p.unique}</td>
-                      <td style="padding:10px"><b class="num" style="color:var(--green)">${p.convs}</b></td>
-                      <td style="padding:10px"><span class="chip" style="font-weight:700">${p.cr}%</span></td>
-                      <td style="padding:10px"><span class="chip" style="font-size:11px">${esc(p.topSource)}</span></td>
-                      <td style="padding:10px">
-                        <button class="btn sm" onclick="sessionStorage.setItem('ofa_an_page','${esc(p.page)}');Admin.analyticsView('${esc(p.page)}')">تفاصيل</button>
-                      </td>
-                    </tr>
-                  `;
-                }).join('')}
-              </tbody>
-            </table>
-          </div>
-        </div>
-        ` : ''}
 
         <!-- Interactive UTM Campaign Link Generator -->
         <div class="card" style="margin-bottom:18px;background:color-mix(in srgb,var(--surface) 95%,var(--green));border:1px solid color-mix(in srgb,var(--line) 80%,var(--green))">
@@ -471,58 +556,33 @@
           </div>
         </div>
 
-        <!-- Geographic & Realtime Stream -->
-        <div class="grid g2" style="align-items:start">
-          
-          <!-- Locations / Cities -->
-          <div class="card">
-            <div class="row between" style="margin-bottom:12px">
-              <h3 style="margin:0;font-size:15px">${ic('home')} التوزيع الجغرافي والولايات</h3>
-              <span class="chip">${cities.length} مدن</span>
-            </div>
-            <div class="list">
-              ${cities.slice(0, 8).map(function (c) {
-                return `
-                  <div class="li" style="cursor:default">
-                    <span class="small">${esc(c.label)}</span>
-                    <span class="grow"></span>
-                    <b class="num small">${c.count}</b>
-                    <span class="tiny faint">(${c.pct}%)</span>
-                  </div>
-                `;
-              }).join('')}
-              ${!cities.length ? '<div class="empty">لا توجد بيانات جغرافية</div>' : ''}
-            </div>
+        <!-- Real-time Conversions Stream -->
+        <div class="card">
+          <div class="row between" style="margin-bottom:12px">
+            <h3 style="margin:0;font-size:15px">⚡ آخر التحويلات ونقرات الواتساب الحية</h3>
+            <span class="chip pri">مباشر</span>
           </div>
-
-          <!-- Real-time Conversions & Visitor Stream -->
-          <div class="card">
-            <div class="row between" style="margin-bottom:12px">
-              <h3 style="margin:0;font-size:15px">⚡ آخر التحويلات ونقرات الواتساب الحية</h3>
-              <span class="chip pri">مباشر</span>
-            </div>
-            <div class="list">
-              ${convs.slice(0, 8).map(function (c) {
-                return `
-                  <div class="li" style="cursor:default;align-items:start;padding:8px 0;border-inline-start:3px solid var(--green);padding-inline-start:8px">
-                    <span class="av" style="font-size:13px;background:rgba(34,176,75,0.15);color:var(--green-deep)">💬</span>
-                    <div class="grow" style="min-width:0">
-                      <div class="row between nowrap">
-                        <b class="small ell" style="color:var(--green-deep)">${esc(c.plan_name || 'طلب اشتراك')}</b>
-                        <span class="tiny faint">${timeAgo(c.created_at)}</span>
-                      </div>
-                      <div class="tiny muted" style="margin-top:2px">
-                        ${c.price ? '<b>' + money(c.price) + '</b> · ' : ''}
-                        ${esc(c.city || 'الجزائر')} · <span class="chip" style="font-size:10px;padding:2px 6px">${esc(c.referrer_domain || 'مباشر')}</span> · ${esc(c.browser || '')}
-                      </div>
+          <div class="list">
+            ${convs.slice(0, 10).map(function (c) {
+              return `
+                <div class="li" style="cursor:default;align-items:start;padding:8px 0;border-inline-start:3px solid var(--green);padding-inline-start:8px">
+                  <span class="av" style="font-size:13px;background:rgba(34,176,75,0.15);color:var(--green-deep)">💬</span>
+                  <div class="grow" style="min-width:0">
+                    <div class="row between nowrap">
+                      <b class="small ell" style="color:var(--green-deep)">${esc(c.plan_name || 'طلب اشتراك')}</b>
+                      <span class="tiny faint">${timeAgo(c.created_at)}</span>
+                    </div>
+                    <div class="tiny muted" style="margin-top:2px">
+                      ${c.price ? '<b>' + money(c.price) + '</b> · ' : ''}
+                      📍 ${esc(c.wilaya || c.city || 'الجزائر')} · <span class="chip" style="font-size:10px;padding:2px 6px">${esc(c.referrer_domain || 'مباشر')}</span> · 📱 ${esc(c.browser || '')}
+                      ${c.decision_latency_sec ? ' · قرر في: ' + c.decision_latency_sec + ' ث' : ''}
                     </div>
                   </div>
-                `;
-              }).join('')}
-              ${!convs.length ? '<div class="empty">لا توجد تحويلات مسجلة بعد لهذه الفترة</div>' : ''}
-            </div>
+                </div>
+              `;
+            }).join('')}
+            ${!convs.length ? '<div class="empty">لا توجد تحويلات مسجلة بعد لهذه الفترة</div>' : ''}
           </div>
-
         </div>
       `;
     };
