@@ -1,6 +1,6 @@
 /* admin-plus.js — UI/UX phase 3 (admin): grouped menu, "today" hero, density toggle, bulk order status, undo on delete, dark by default. Chains onto Admin after ops.js + life.js. */
 (function () {
-  var GROUPS = [['العمل', ['dash', 'orders', 'cal', 'leads']], ['المتجر', ['clients', 'products', 'store', 'pages', 'site']], ['الأرقام', ['finance', 'stats', 'life']]];
+  var GROUPS = [['العمل', ['dash', 'orders', 'cal', 'leads']], ['المتجر', ['clients', 'products', 'store', 'pages', 'site']], ['الأرقام', ['finance', 'stats', 'analytics', 'life']]];
   var BOTTOM = ['dash', 'orders', 'cal', 'clients'];
   var pad = function (n) { return String(n).padStart(2, '0'); };
   var algNow = function () { return new Date(Date.now() + 36e5); };

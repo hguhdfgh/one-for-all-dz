@@ -501,5 +501,6 @@ $('#yr').textContent=new Date().getFullYear();
 $('#thm').addEventListener('click',function(){var d=document.documentElement,t=d.dataset.theme==='light'?'dark':'light';d.dataset.theme=t;try{localStorage.setItem('ofa_theme',t)}catch(e){}var m=document.querySelector('meta[name=theme-color]');if(m)m.content=t==='light'?'#F3F9F5':'#050B08'});
 })();
 </script>
+<script src="assets/tracker.js" defer></script>
 </body>
 </html>
