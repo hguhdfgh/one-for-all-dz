@@ -1,0 +1,108 @@
+/* landing-plus.css - motion + interaction layer for the landing page (loads last; all motion is off under prefers-reduced-motion) */
+@media (min-width:901px){.hd .burger{display:none}}
+
+/* ---------- hero: aurora, grid, pointer light ---------- */
+.hero{isolation:isolate}
+.hero::before{content:"";position:absolute;inset:0;z-index:-2;pointer-events:none;
+  background-image:linear-gradient(color-mix(in srgb,var(--green) 9%,transparent) 1px,transparent 1px),linear-gradient(90deg,color-mix(in srgb,var(--green) 9%,transparent) 1px,transparent 1px);
+  background-size:44px 44px;-webkit-mask-image:radial-gradient(ellipse 70% 60% at 50% 40%,#000 20%,transparent 75%);mask-image:radial-gradient(ellipse 70% 60% at 50% 40%,#000 20%,transparent 75%)}
+.hero .aur{position:absolute;z-index:-2;pointer-events:none;inset:-20% -10% auto auto;width:min(760px,90vw);aspect-ratio:1;border-radius:50%;
+  background:radial-gradient(closest-side at 32% 30%,rgba(110,229,154,.34),transparent),radial-gradient(closest-side at 70% 38%,rgba(15,170,96,.22),transparent),radial-gradient(closest-side at 46% 74%,rgba(43,217,124,.24),transparent);opacity:.8;animation:aur 26s linear infinite}
+[dir=rtl] .hero .aur{inset:-20% auto auto -10%}
+@keyframes aur{to{transform:rotate(360deg)}}
+.hero .lite{position:absolute;left:0;top:0;width:840px;height:840px;margin:-420px 0 0 -420px;z-index:-1;pointer-events:none;opacity:0;transition:opacity .6s;
+  transform:translate(var(--lx,50vw),var(--ly,50%));background:radial-gradient(closest-side,color-mix(in srgb,var(--green) 13%,transparent),transparent)}
+.hero:hover .lite{opacity:1}
+
+/* headline: word-by-word rise (words are never split inside, so Arabic shaping stays intact) */
+#htitle.split{animation:none}
+html.js:not(.mo-rm) #htitle:not(.split){visibility:hidden;height:2.2em;overflow:hidden;animation:mo-vis 0s 2.5s forwards}
+@keyframes mo-vis{to{visibility:visible;height:auto}}
+#htitle .w{display:inline-block;overflow:clip;overflow-clip-margin:.18em;vertical-align:top;padding-block:.06em;margin-block:-.06em}
+#htitle .wi{display:inline-block;animation:wordUp .9s var(--ease-out) both;animation-delay:calc(.1s + var(--i)*.07s)}
+@keyframes wordUp{from{transform:translateY(105%);opacity:0}}
+/* highlighted words: gradient sheen that sweeps once after the words land */
+#htitle.split em{background:linear-gradient(110deg,var(--green-deep) 0%,var(--green-2) 40%,#B8F5CF 50%,var(--green-2) 60%,var(--green-deep) 100%);background-size:250% 100%;background-position:100% 0;-webkit-background-clip:text;background-clip:text;color:transparent;animation:sheen 1.6s var(--ease-out) 1s both}
+@keyframes sheen{from{background-position:100% 0}to{background-position:0 0}}
+
+/* mock: 3D tilt + live demo loop */
+.mock{perspective:1100px}
+.mock .card{transform-style:preserve-3d;transition:transform .7s var(--ease-out),box-shadow .5s}
+.mock.tilt .m1{transform:rotateY(calc(var(--px,0)*10deg)) rotateX(calc(var(--py,0)*-8deg)) translateZ(30px)}
+.mock.tilt .m2{transform:rotateY(calc(var(--px,0)*14deg)) rotateX(calc(var(--py,0)*-10deg)) translateZ(60px)}
+.mock .bar i{width:100%!important;animation:none;transform:scaleX(var(--k,.66));transition:transform 1s var(--ease-out)}
+.mock .step .d{transition:background .4s,border-color .4s,transform .4s var(--ease)}
+.mock .step.pulse .d{transform:scale(1.25)}
+.mock .m1 .chip{transition:background .4s,color .4s}
+.mock .m1 .chip.ok{background:var(--green-soft);color:var(--green-ink)}
+.mock .m3.ping{animation:ping .9s var(--ease-out) both}
+@keyframes ping{0%{transform:translateY(14px) scale(.85);opacity:0}60%{transform:translateY(-3px) scale(1.04);opacity:1}100%{transform:none}}
+.mock .m3 .dot{position:relative}
+.mock .m3 .dot::after{content:"";position:absolute;inset:-5px;border-radius:50%;border:2px solid var(--green);opacity:0;animation:ring 1.8s var(--ease-out) infinite}
+@keyframes ring{0%{transform:scale(.4);opacity:.9}100%{transform:scale(1.6);opacity:0}}
+
+/* magnetic primary buttons (desktop) */
+.btn.mag{transition:translate .35s var(--ease-out),background .2s,box-shadow .25s var(--ease),transform .25s var(--ease)}
+.btn:active{transform:scale(.97)}
+
+/* ---------- cards: pointer spotlight + tilt ---------- */
+.spot{position:relative}
+.spot::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:1;opacity:0;transition:opacity .35s;
+  background:radial-gradient(360px circle at var(--mx,50%) var(--my,50%),color-mix(in srgb,var(--green) 14%,transparent),transparent 65%)}
+.spot:hover::before{opacity:1}
+.spot::after{transition:opacity .3s}
+.pc.spot.tilting{transition:transform .15s linear,box-shadow .4s var(--ease)}
+.pc .cover{position:relative}
+.pc .cover::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(115deg,transparent 35%,rgba(255,255,255,.35) 50%,transparent 65%);background-size:250% 100%;background-position:130% 0;transition:background-position .9s var(--ease)}
+.pc:hover .cover::after{background-position:-30% 0}
+
+/* filter pills: sliding indicator */
+.filters .pills{position:relative;isolation:isolate}
+.filters .pind{position:absolute;top:5px;bottom:5px;left:0;width:0;border-radius:99px;z-index:-1;background:linear-gradient(135deg,#12B467,#0A8F52);box-shadow:0 6px 16px rgba(15,170,96,.3);transition:left .5s var(--ease-out),width .5s var(--ease-out)}
+.filters.fslide .pill.on{background:transparent;color:#fff}
+.filters .pill{position:relative}
+
+/* ---------- how: progress line that fills step by step ---------- */
+.steps3{position:relative}
+.steps3 .card{z-index:1}
+.how-line{position:absolute;z-index:0;top:-20px;inset-inline:0;height:3px;border-radius:3px;background:var(--line);overflow:hidden}
+.how-line i{position:absolute;inset:0;background:linear-gradient(90deg,var(--green-2),var(--green-deep));transform:scaleX(0);transform-origin:right;transition:transform 1.6s var(--ease-out) .2s}
+[dir=ltr] .how-line i{transform-origin:left}
+.steps3.go .how-line i{transform:scaleX(1)}
+.steps3 .card .si{transition:transform .5s var(--ease),background .4s,color .4s,box-shadow .4s}
+.steps3.go .card .si{animation:siOn .6s var(--ease) both;animation-delay:calc(.25s + var(--k)*.5s)}
+@keyframes siOn{50%{transform:scale(1.18) rotate(-6deg)}100%{background:var(--green);color:#fff;box-shadow:0 8px 20px rgba(15,170,96,.32)}}
+.steps3 .card::after{transition:opacity .6s}
+.steps3.go .card::after{animation:numOn .6s ease both;animation-delay:calc(.25s + var(--k)*.5s)}
+@keyframes numOn{to{opacity:.22}}
+@media (max-width:900px){.how-line{top:0;bottom:0;height:auto;width:3px;inset-inline:auto;inset-inline-start:-10px}.how-line i{transform:scaleY(0);transform-origin:top}.steps3.go .how-line i{transform:scaleY(1)}[dir=ltr] .how-line i{transform-origin:top}}
+
+/* ---------- band + CTA ---------- */
+.band::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.18) 48%,transparent 62%);background-size:260% 100%;background-position:140% 0}
+.band.shown::after{animation:sweep 2.4s var(--ease-out) .4s both}
+@keyframes sweep{to{background-position:-40% 0}}
+@property --ang{syntax:"<angle>";inherits:false;initial-value:0deg}
+.cta{border-color:transparent;background:linear-gradient(var(--solid),var(--solid)) padding-box,conic-gradient(from var(--ang),transparent 0 62%,var(--green-2) 75%,var(--green-deep) 86%,transparent 96%) border-box;border:1.5px solid transparent;animation:ang 7s linear infinite}
+@keyframes ang{to{--ang:360deg}}
+
+/* section titles: soft mask reveal */
+.js .rv .h2{clip-path:inset(0 0 100% 0);transition:clip-path 1s var(--ease-out) .12s}
+.js .rv.shown .h2{clip-path:inset(0 0 -20% 0)}
+
+/* FAQ: active row gets a green rail */
+details.q{position:relative;overflow:hidden}
+details.q::before{content:"";position:absolute;inset-block:14px;inset-inline-start:0;width:3px;border-radius:3px;background:var(--green);transform:scaleY(0);transition:transform .4s var(--ease-out)}
+details.q[open]::before{transform:scaleY(1)}
+details.q summary:hover{color:var(--green-ink)}
+
+/* theme switch: circular reveal (View Transitions API) */
+::view-transition-old(root),::view-transition-new(root){animation:none;mix-blend-mode:normal}
+
+/* mobile + reduced motion */
+@media (max-width:760px){.hero .aur{animation-duration:40s}.hero::before{background-size:32px 32px}.cta{animation-duration:10s}}
+@media (prefers-reduced-motion:reduce){
+  .hero .aur,.cta,.mock .m3 .dot::after{animation:none}
+  #htitle .wi,#htitle.split em,.band.shown::after,.steps3.go .card .si,.steps3.go .card::after{animation-duration:.01s;animation-delay:0s}
+  .how-line i{transition:none}
+  .js .rv .h2{clip-path:none;transition:none}
+}

@@ -1,0 +1,49 @@
+/* ui.css — measurement system + motion tokens (additive layer, loads last) */
+:root{
+  --h-sm:36px;--h-md:44px;--h-lg:52px;--h-in:48px;
+  --gap-btn:12px;--gap-field:16px;
+  --ease:cubic-bezier(.2,.8,.2,1);--t-fast:120ms;--t-base:200ms;--t-slow:320ms;
+}
+/* Buttons: one scale */
+.btn{min-height:var(--h-md);box-sizing:border-box;padding-block:0;padding-inline:20px;display:inline-flex;align-items:center;justify-content:center;gap:8px;line-height:1;transition:background var(--t-base) var(--ease),border-color var(--t-base) var(--ease),transform var(--t-fast) var(--ease),box-shadow var(--t-base) var(--ease)}
+.btn.sm{min-height:var(--h-sm);padding-inline:14px}
+.btn.lg{min-height:var(--h-lg);padding-inline:28px}
+.btn.icon,.btn.icon.sm,.btn.icon.lg,#svc .pc .actions .btn.icon{width:var(--h-md);min-width:var(--h-md);height:var(--h-md);min-height:var(--h-md);padding:0;flex:0 0 var(--h-md)}
+.btn.icon.sm{width:var(--h-sm);min-width:var(--h-sm);height:var(--h-sm);min-height:var(--h-sm);flex-basis:var(--h-sm)}
+.btn:active{transform:scale(.97)}
+/* Inputs */
+.in,input.in,select.in{min-height:var(--h-in);box-sizing:border-box}
+textarea.in{min-height:96px}
+/* Header controls share one height and baseline */
+.hd .btn,.hd .burger,.hd .lang,.hd .theme-t{min-height:var(--h-md);height:var(--h-md);box-sizing:border-box;align-items:center}
+.hd .burger{width:var(--h-md);padding:0}
+.hd .wrap{align-items:center}
+/* Week arrows / sliders */
+.wk-ctl .btn,.wk-ctl .btn.icon{width:var(--h-md);height:var(--h-md);min-height:var(--h-md)}
+/* Gallery dots: 44px hit area, small visual dot */
+.dots button{width:var(--h-md);height:var(--h-md)}
+/* Pills */
+.pill{min-height:36px;box-sizing:border-box;display:inline-flex;align-items:center}
+.seg button{min-height:var(--h-md)}
+/* Button rows and form fields */
+.actions,.row-btns{gap:var(--gap-btn)}
+.fld+.fld,form .fld{margin-block-end:var(--gap-field)}
+/* Focus + motion hygiene */
+:focus-visible{outline:2px solid var(--g,#0FAA60);outline-offset:2px;border-radius:8px}
+@media(hover:hover) and (pointer:fine){.btn:hover{transform:translateY(-1px)}}
+@media(hover:none){.btn:hover{transform:none}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+/* Command palette */
+#cmdk{position:fixed;inset:0;z-index:9999;display:none;align-items:flex-start;justify-content:center;padding:12vh 16px 16px;background:rgba(4,17,15,.5);backdrop-filter:blur(6px)}
+#cmdk.on{display:flex;animation:cmdkIn var(--t-base) var(--ease)}
+#cmdk .box{width:min(560px,100%);background:var(--card,#fff);color:var(--tx,#04110F);border:1px solid var(--bd,rgba(0,0,0,.1));border-radius:16px;box-shadow:0 24px 60px rgba(0,0,0,.3);overflow:hidden}
+#cmdk input{width:100%;height:56px;border:0;border-bottom:1px solid var(--bd,rgba(0,0,0,.1));padding:0 20px;font:inherit;font-size:16px;background:transparent;color:inherit;outline:none;box-sizing:border-box}
+#cmdk ul{list-style:none;margin:0;padding:8px;max-height:50vh;overflow:auto}
+#cmdk li{display:flex;justify-content:space-between;align-items:center;min-height:var(--h-md);padding:0 12px;border-radius:10px;cursor:pointer}
+#cmdk li.sel,#cmdk li:hover{background:rgba(15,170,96,.12)}
+#cmdk kbd,.kbd{font:600 11px/1 ui-monospace,monospace;padding:4px 6px;border-radius:6px;border:1px solid var(--bd,rgba(0,0,0,.15));opacity:.7}
+#cmdk .help{padding:12px 20px;font-size:13px;opacity:.7;border-top:1px solid var(--bd,rgba(0,0,0,.1))}
+@keyframes cmdkIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+/* compact language select shares the control height */
+select.in.sm,.hd select.in,.lang select{min-height:var(--h-md);height:var(--h-md)}
+html,body{overflow-x:clip}

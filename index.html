@@ -3,532 +3,121 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#EAF6EE">
-<meta property="og:title" content="ISHAK · Creative Ads">
-<meta property="og:description" content="فيديوهات إعلانية بالذكاء الاصطناعي وحسابات TikTok و Meta Ads في الجزائر.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27%3E%3Crect width=%2724%27 height=%2724%27 rx=%276%27 fill=%27%230E1F15%27/%3E%3Cpath d=%27M7 4v13h10%27 fill=%27none%27 stroke=%27%233DC163%27 stroke-width=%272.4%27 stroke-linecap=%27round%27/%3E%3C/svg%3E">
-<title>ISHAK Creative Ads</title>
-<meta name="description" content="فيديوهات إعلانية بالذكاء الاصطناعي وحسابات TikTok و Meta Ads في الجزائر. اطلب عبر الاستمارة أو واتساب.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@300;400;500;600;700&display=swap">
-<style>
-/* Layout: light mint "glass" storefront — floating pill nav, hero with a product→ad phone demo, service cards like a shop grid, an order bay with two paths (form or WhatsApp). Reference: soft green glass mobile UI. */
-:root{
---bg:#EAF6EE; --bg-2:#DDF1E3; --glass:rgba(255,255,255,.66); --glass-2:rgba(255,255,255,.85); --stroke:rgba(255,255,255,.9);
---ink:#0E1F15; --ink-2:#2E4437; --muted:#5C7366; --line:#CFE5D6;
---green:#22B04B; --green-2:#3DC163; --green-deep:#15843A; --green-ink:#0B5E27; --on-green:#FFFFFF; --mint:#C9F0D5;
---bad:#C0352B; --bad-soft:#FDECEA;
---shadow:0 1px 2px rgba(14,31,21,.05),0 12px 32px rgba(21,132,58,.10);
---shadow-lg:0 24px 60px rgba(21,132,58,.18);
---font:"Readex Pro","Segoe UI",Tahoma,system-ui,sans-serif;
---r:22px;
-color-scheme:light;
-}
-*{box-sizing:border-box}
-[hidden]{display:none!important}
-html{scroll-behavior:smooth;overflow-x:clip}
-body{background:radial-gradient(1200px 600px at 85% -10%,#CFF3DA 0%,transparent 60%),radial-gradient(900px 500px at -10% 30%,#D8F5E1 0%,transparent 55%),var(--bg);color:var(--ink);font-family:var(--font);font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased;min-height:100%;overflow-x:clip}
-h1,h2,h3{margin:0;line-height:1.2;text-wrap:balance;font-weight:700;letter-spacing:-.01em}
-p{margin:0}
-a{color:inherit}
-button,input,select,textarea{font:inherit;color:inherit}
-:focus-visible{outline:3px solid var(--green);outline-offset:3px;border-radius:12px}
-.wrap{max-width:1180px;margin:0 auto;padding-inline:20px}
-.glass{background:var(--glass);backdrop-filter:blur(18px) saturate(1.3);-webkit-backdrop-filter:blur(18px) saturate(1.3);border:1px solid var(--stroke);box-shadow:var(--shadow)}
-.blob{position:absolute;border-radius:50%;pointer-events:none;z-index:0}
-.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--green-ink);background:var(--glass-2);border:1px solid var(--stroke);padding:6px 12px;border-radius:99px}
-.eyebrow i{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 0 4px rgba(34,176,75,.18)}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:48px;padding:0 22px;border-radius:99px;border:0;cursor:pointer;font-weight:600;font-size:15.5px;text-decoration:none;white-space:nowrap;transition:transform .15s ease,box-shadow .2s ease,background .2s}
-.btn:active{transform:scale(.98)}
-.btn svg{width:20px;height:20px;flex:none}
-.btn.pri{background:linear-gradient(135deg,var(--green-2),var(--green) 55%,var(--green-deep));color:var(--on-green);box-shadow:0 10px 24px rgba(34,176,75,.35)}
-.btn.pri:hover{box-shadow:0 14px 30px rgba(34,176,75,.45)}
-.btn.soft{background:var(--glass-2);color:var(--ink);border:1px solid var(--stroke);box-shadow:var(--shadow)}
-.btn.soft:hover{background:#fff}
-.btn.wa{background:#fff;color:var(--green-ink);border:1.5px solid var(--green)}
-.btn.sm{min-height:40px;padding:0 16px;font-size:14px}
-.btn.block{width:100%}
-/* nav */
-.nav{position:sticky;top:calc(10px + env(safe-area-inset-top,0px));z-index:30;margin-top:10px}
-.nav .bar{display:flex;align-items:center;gap:14px;padding:8px 8px 8px 18px;border-radius:99px}
-[dir=rtl] .nav .bar{padding:8px 18px 8px 8px}
-.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-weight:700;font-size:19px}
-.brand .mk{width:36px;height:36px;border-radius:12px;background:linear-gradient(135deg,#0E1F15,#1D3A27);display:grid;place-items:center}
-.brand small{font-weight:500;font-size:12px;color:var(--muted);display:block;line-height:1}
-.links{display:flex;gap:4px;margin-inline-start:auto}
-.links a{text-decoration:none;font-size:14.5px;color:var(--ink-2);padding:9px 14px;border-radius:99px}
-.links a:hover{background:rgba(255,255,255,.8)}
-.lang{min-height:40px;padding:0 14px;border-radius:99px;border:1px solid var(--line);background:#fff;cursor:pointer;font-size:13.5px;font-weight:500}
-/* hero */
-.hero{position:relative;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:40px;align-items:center;padding-block:56px 40px}
-.hero h1{font-size:clamp(2.3rem,5.4vw,4.2rem);margin-top:18px}
-.hero h1 .g{background:linear-gradient(135deg,var(--green-2),var(--green-deep));-webkit-background-clip:text;background-clip:text;color:transparent}
-.hero .lead{font-size:1.12rem;color:var(--muted);max-width:50ch;margin-top:18px}
-.hero .acts{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}
-.stats{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}
-.stat{padding:12px 16px;border-radius:18px;display:flex;flex-direction:column;min-width:130px}
-.stat b{font-size:1.35rem;font-variant-numeric:tabular-nums}
-.stat span{font-size:12.5px;color:var(--muted)}
-/* phone demo */
-.demo{position:relative;display:flex;flex-direction:column;align-items:center;gap:16px;z-index:1}
-.phone{position:relative;width:min(310px,80vw);aspect-ratio:9/17;border-radius:36px;padding:12px;background:rgba(255,255,255,.55);border:1px solid #fff;box-shadow:var(--shadow-lg);backdrop-filter:blur(14px)}
-.screen{position:relative;width:100%;height:100%;border-radius:26px;overflow:hidden;background:#F4FBF6}
-.scr-top{position:absolute;inset-inline:14px;top:12px;display:flex;justify-content:space-between;align-items:center;z-index:9;font-size:11px;font-weight:600;color:var(--ink-2);direction:ltr}
-.scr-top .rec{display:inline-flex;align-items:center;gap:5px;background:#fff;padding:3px 8px;border-radius:99px;box-shadow:var(--shadow)}
-.scr-top .rec i{width:6px;height:6px;border-radius:50%;background:#E5484D}
-.ly{position:absolute;inset:0;opacity:0;transition:opacity .6s ease}
-.s1 .l1,.s2 .l2,.s3 .l3,.s4 .l3,.s5 .l3,.s4 .l4,.s5 .l5{opacity:1}
-.l1{background:linear-gradient(160deg,#D9D6CF,#B9B5AC)}
-.l1 .cap{position:absolute;bottom:16px;inset-inline-start:14px;font-size:10.5px;color:#4B4943;direction:ltr;background:rgba(255,255,255,.6);padding:2px 8px;border-radius:99px}
-.l2{background:#F4FBF6;background-image:linear-gradient(rgba(34,176,75,.18) 1px,transparent 1px),linear-gradient(90deg,rgba(34,176,75,.18) 1px,transparent 1px);background-size:33.33% 33.33%}
-.l2 .note{position:absolute;font-size:10px;font-weight:600;color:var(--green-ink);background:#fff;border:1px dashed var(--green);padding:3px 8px;border-radius:99px;direction:ltr}
-.l3{background:radial-gradient(110% 65% at 50% 30%,#7FE09B 0%,#2EAA51 40%,#0F5A27 78%)}
-.l3 .floor{position:absolute;inset-inline:0;bottom:0;height:32%;background:linear-gradient(180deg,rgba(255,255,255,.18),rgba(0,0,0,.35))}
-.l3 .ring{position:absolute;left:50%;top:54%;width:70%;aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;border:2px solid rgba(255,255,255,.35)}
-.l4 .sweep{position:absolute;top:0;bottom:0;width:40%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.35),transparent);transform:skewX(-14deg);animation:sweep 2.4s ease-in-out infinite}
-.l4 .dot{position:absolute;width:7px;height:7px;border-radius:50%;background:#fff;opacity:.8;animation:rise 2.2s ease-in infinite}
-@keyframes sweep{from{left:-50%}to{left:120%}}
-@keyframes rise{from{transform:translateY(20px);opacity:0}40%{opacity:.9}to{transform:translateY(-60px);opacity:0}}
-.l5 .head{position:absolute;inset-inline:16px;top:15%;text-align:center;color:#fff}
-.l5 .head small{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.14em;background:#fff;color:var(--green-ink);padding:3px 10px;border-radius:99px;margin-bottom:8px}
-.l5 .head b{display:block;font-size:23px;line-height:1.25;text-shadow:0 2px 18px rgba(0,0,0,.25)}
-.l5 .buy{position:absolute;inset-inline:12px;bottom:12px;display:flex;align-items:center;justify-content:space-between;gap:8px;background:#fff;border-radius:18px;padding:8px 8px 8px 14px;box-shadow:var(--shadow);font-size:12.5px;font-weight:600}
-[dir=rtl] .l5 .buy{padding:8px 14px 8px 8px}
-.l5 .buy span:last-child{background:linear-gradient(135deg,var(--green-2),var(--green-deep));color:#fff;border-radius:12px;padding:7px 12px;white-space:nowrap}
-.prod{position:absolute;left:50%;top:55%;width:32%;transform:translate(-50%,-50%) rotate(-9deg);z-index:5;transition:transform .9s cubic-bezier(.2,.8,.2,1),filter .9s}
-.prod .c{width:46%;height:16%;margin:0 auto;background:linear-gradient(90deg,#1B2A21,#47584D 45%,#14201A);border-radius:6px 6px 2px 2px}
-.prod .n{width:30%;height:5%;margin:0 auto;background:#CFE5D6}
-.prod .b{aspect-ratio:.62;border-radius:20px 20px 24px 24px;background:linear-gradient(100deg,rgba(255,255,255,.95) 0%,rgba(220,246,228,.8) 25%,rgba(61,193,99,.75) 62%,rgba(15,90,39,.95) 100%);border:1px solid rgba(255,255,255,.8);position:relative;overflow:hidden}
-.prod .b::before{content:"";position:absolute;left:12%;top:6%;width:12%;height:80%;border-radius:20px;background:rgba(255,255,255,.7)}
-.prod .b::after{content:"N°7";position:absolute;inset-inline:0;bottom:22%;text-align:center;font-weight:700;font-size:13px;color:rgba(11,94,39,.9);letter-spacing:.08em;direction:ltr}
-.s1 .prod{filter:saturate(.5) brightness(.92)}
-.s2 .prod{filter:grayscale(1) contrast(1.1);opacity:.7}
-.s3 .prod,.s4 .prod,.s5 .prod{transform:translate(-50%,-50%) rotate(0);filter:drop-shadow(0 18px 28px rgba(0,0,0,.35))}
-.s4 .prod{animation:float 2.4s ease-in-out infinite}
-.s5 .prod{transform:translate(-50%,-36%) scale(1.06)}
-@keyframes float{0%,100%{transform:translate(-50%,-50%)}50%{transform:translate(-50%,-57%)}}
-.pills{display:flex;gap:6px;padding:6px;border-radius:99px;flex-wrap:wrap;justify-content:center}
-.pills button{min-height:38px;padding:0 14px;border-radius:99px;border:0;background:none;cursor:pointer;font-size:13.5px;font-weight:500;color:var(--ink-2);position:relative;overflow:hidden}
-.pills button.on{background:linear-gradient(135deg,var(--green-2),var(--green));color:#fff;box-shadow:0 6px 16px rgba(34,176,75,.35)}
-.pills button.on::after{content:"";position:absolute;inset-inline-start:0;bottom:0;height:3px;background:rgba(255,255,255,.75);animation:fill var(--dur,2600ms) linear forwards}
-.paused .pills button.on::after{animation:none;width:100%}
-@keyframes fill{from{width:0}to{width:100%}}
-.demo-note{font-size:12.5px;color:var(--muted)}
-/* sections */
-section.s{position:relative;padding-block:72px}
-.sh{display:flex;flex-direction:column;gap:12px;max-width:680px;margin-bottom:30px}
-.sh.c{margin-inline:auto;text-align:center;align-items:center}
-.sh h2{font-size:clamp(1.8rem,3.6vw,2.6rem)}
-.sh p{color:var(--muted);font-size:1.05rem}
-/* problems */
-.probs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
-.prob{border-radius:var(--r);padding:24px;display:flex;flex-direction:column;gap:12px;min-width:0}
-.prob .ic{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;background:var(--mint);color:var(--green-ink)}
-.prob .ic svg{width:22px;height:22px}
-.prob h3{font-size:1.12rem}
-.prob p{color:var(--muted);font-size:15px}
-/* shop grid */
-.toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:20px}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:18px}
-.card{border-radius:var(--r);padding:12px;display:flex;flex-direction:column;gap:12px;min-width:0;transition:transform .2s ease,box-shadow .2s ease}
-.card:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg)}
-.card .vis{position:relative;aspect-ratio:4/3;border-radius:16px;overflow:hidden;max-width:100%}
-.card .vis .tg{position:absolute;top:10px;inset-inline-start:10px;font-size:11.5px;font-weight:600;background:#fff;color:var(--green-ink);padding:3px 10px;border-radius:99px;box-shadow:var(--shadow)}
-.card .bd{padding:2px 6px 4px;display:flex;flex-direction:column;gap:6px;flex:1}
-.card h3{font-size:1.08rem}
-.card p{color:var(--muted);font-size:14px}
-.card .ft{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:auto;padding-top:8px}
-.price{font-weight:700;font-size:1.25rem;font-variant-numeric:tabular-nums;color:var(--green-ink)}
-.price small{font-size:.72em;font-weight:500;color:var(--muted);margin-inline-start:3px}
-.price.q{font-size:.95rem;color:var(--ink-2);font-weight:600}
-.card[hidden]{display:none}
-/* feature pack (detail card) */
-.pack{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0;border-radius:28px;overflow:hidden}
-.pack .art{position:relative;min-height:340px;background:radial-gradient(90% 80% at 30% 30%,#8BE5A6,#2BAA50 55%,#0F5A27)}
-.pack .body{padding:34px;display:flex;flex-direction:column;gap:16px;background:rgba(255,255,255,.75)}
-.pack h3{font-size:1.9rem}
-.pack ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:8px}
-.pack li{display:flex;gap:10px;align-items:flex-start;color:var(--ink-2)}
-.pack li svg{width:20px;height:20px;color:var(--green);flex:none;margin-top:3px}
-.totals{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-top:10px;border-top:1px solid var(--line)}
-.totals .l{font-size:13px;color:var(--muted);font-weight:500}
-.totals .v{font-size:2rem;font-weight:700;color:var(--green-ink);font-variant-numeric:tabular-nums}
-.stepper{display:inline-flex;align-items:center;gap:6px;background:#fff;border:1px solid var(--line);border-radius:99px;padding:4px}
-.stepper button{width:40px;height:40px;border-radius:50%;border:0;background:var(--bg-2);cursor:pointer;font-size:20px;font-weight:600;color:var(--ink)}
-.stepper button:hover{background:var(--mint)}
-.stepper output{min-width:28px;text-align:center;font-weight:700;font-variant-numeric:tabular-nums}
-/* ai + process */
-.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:18px}
-.split{border-radius:var(--r);overflow:hidden}
-.split .r{display:grid;grid-template-columns:1fr 1fr}
-.split .r>div{padding:13px 18px;font-size:14.5px;min-width:0;border-top:1px solid var(--line)}
-.split .r>div+div{border-inline-start:1px solid var(--line)}
-.split .r.h>div{border-top:0;font-weight:700;color:var(--green-ink);background:rgba(201,240,213,.55)}
-.steps{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px}
-.step{border-radius:var(--r);padding:20px;display:flex;flex-direction:column;gap:8px;min-width:0}
-.step .n{width:36px;height:36px;border-radius:12px;background:linear-gradient(135deg,var(--green-2),var(--green-deep));color:#fff;display:grid;place-items:center;font-weight:700;font-variant-numeric:tabular-nums}
-.step b{font-size:1.05rem}
-.step p{color:var(--muted);font-size:14px}
-/* order bay */
-.order{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:22px;align-items:start}
-.order .side{border-radius:28px;padding:30px;display:flex;flex-direction:column;gap:16px;background:linear-gradient(160deg,#173B25,#0E1F15);color:#EAF6EE;border:0}
-.order .side h2{font-size:clamp(1.7rem,3.2vw,2.3rem)}
-.order .side p{color:#B5CCBE}
-.order .side .row{display:flex;gap:12px;align-items:center;font-size:14.5px}
-.order .side .row svg{width:20px;height:20px;color:var(--green-2);flex:none}
-.order .side .num{direction:ltr;unicode-bidi:isolate;font-weight:600;color:#fff}
-.panel{border-radius:28px;padding:10px}
-.tabs{display:grid;grid-template-columns:1fr 1fr;gap:6px;background:rgba(207,229,214,.55);border-radius:99px;padding:5px}
-.tabs button{min-height:46px;border-radius:99px;border:0;background:none;cursor:pointer;font-weight:600;font-size:15px;display:flex;align-items:center;justify-content:center;gap:8px;color:var(--ink-2)}
-.tabs button svg{width:19px;height:19px}
-.tabs button.on{background:#fff;color:var(--green-ink);box-shadow:var(--shadow)}
-.pane{padding:22px 16px 14px}
-form{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.f{display:flex;flex-direction:column;gap:6px;min-width:0}
-.f.full{grid-column:1/-1}
-.f label,.f .lb{font-size:14px;font-weight:600;color:var(--ink-2)}
-.f .opt{font-weight:400;color:var(--muted)}
-.f input:not([type=radio]),.f textarea{width:100%;min-height:50px;padding:12px 15px;border-radius:16px;border:1.5px solid var(--line);background:#fff;font-size:16px;transition:border-color .15s,box-shadow .15s}
-.f textarea{min-height:110px;resize:vertical}
-.f input:focus,.f textarea:focus{outline:none;border-color:var(--green);box-shadow:0 0 0 4px rgba(34,176,75,.15)}
-.f.err input,.f.err textarea{border-color:var(--bad)}
-.f .msg{font-size:13px;color:var(--bad);display:none}
-.f.err .msg{display:block}
-.f .help{font-size:12.5px;color:var(--muted)}
-.chips{display:flex;flex-wrap:wrap;gap:8px}
-.chips label{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 15px;border-radius:99px;border:1.5px solid var(--line);background:#fff;cursor:pointer;font-size:14.5px;font-weight:500;color:var(--ink)}
-.chips label{position:relative}
-.chips input{position:absolute;opacity:0;pointer-events:none;width:1px;height:1px;margin:0}
-.chips label:has(input:checked){border-color:var(--green);background:var(--mint);color:var(--green-ink)}
-.chips label:has(input:focus-visible){outline:3px solid var(--green);outline-offset:2px}
-.hp{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap}
-.form-foot{grid-column:1/-1;display:flex;flex-direction:column;gap:10px;margin-top:4px}
-.form-foot .note{font-size:12.5px;color:var(--muted);text-align:center}
-.alert{grid-column:1/-1;border-radius:14px;padding:12px 14px;background:var(--bad-soft);color:var(--bad);font-size:14px}
-.done{display:flex;flex-direction:column;align-items:center;text-align:center;gap:14px;padding:26px 10px}
-.done .ok{width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,var(--green-2),var(--green-deep));display:grid;place-items:center;color:#fff;box-shadow:0 12px 30px rgba(34,176,75,.4)}
-.done .ok svg{width:34px;height:34px}
-.done h3{font-size:1.5rem}
-.done p{color:var(--muted);max-width:42ch}
-.wa-list{display:flex;flex-direction:column;gap:10px}
-.wa-item{display:flex;align-items:center;gap:14px;padding:14px 16px;border-radius:18px;background:#fff;border:1.5px solid var(--line);text-decoration:none;min-height:60px;transition:border-color .15s,transform .15s}
-.wa-item:hover{border-color:var(--green);transform:translateY(-1px)}
-.wa-item .ic{width:40px;height:40px;border-radius:12px;background:var(--mint);color:var(--green-ink);display:grid;place-items:center;flex:none}
-.wa-item .ic svg{width:20px;height:20px}
-.wa-item b{font-weight:600;display:block}
-.wa-item span{font-size:13px;color:var(--muted)}
-.wa-item .go{margin-inline-start:auto;color:var(--green);font-weight:600;font-size:13.5px;white-space:nowrap}
-/* faq */
-.faq{display:flex;flex-direction:column;gap:10px;max-width:820px;margin-inline:auto}
-details{border-radius:18px;padding:4px 20px}
-summary{cursor:pointer;list-style:none;min-height:56px;display:flex;align-items:center;justify-content:space-between;gap:12px;font-weight:600}
-summary::-webkit-details-marker{display:none}
-summary::after{content:"+";font-size:22px;color:var(--green);font-weight:500;transition:transform .2s}
-details[open] summary::after{transform:rotate(45deg)}
-details p{color:var(--muted);padding-bottom:16px}
-footer{padding-block:30px 110px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;color:var(--muted);font-size:14px;border-top:1px solid var(--line)}
-.fab{position:fixed;inset-inline-end:18px;bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:40;width:58px;height:58px;border-radius:50%;background:linear-gradient(135deg,var(--green-2),var(--green-deep));color:#fff;display:grid;place-items:center;box-shadow:0 14px 30px rgba(34,176,75,.45);text-decoration:none}
-.fab svg{width:28px;height:28px}
-@media (max-width:960px){
-.links{display:none}
-.hero{grid-template-columns:1fr;padding-block:32px 20px;gap:30px}
-.probs,.two,.order,.pack{grid-template-columns:1fr}
-.steps{grid-template-columns:1fr 1fr}
-.pack .art{min-height:240px}
-.pack .body{padding:24px}
-section.s{padding-block:52px}
-}
-@media (max-width:560px){
-form{grid-template-columns:1fr}
-.steps{grid-template-columns:1fr}
-.nav .bar .btn .t{display:none}
-.stat{min-width:0;flex:1}
-.pane{padding:18px 6px 8px}
-}
-@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
-</style>
+<title>ONE FOR ALL · واحد للكل، بالذكاء الاصطناعي</title>
+<meta name="description" content="إسحاق والذكاء الاصطناعي: فيديوهات إعلانية، صفحات هبوط، متاجر، حسابات إعلانية وخدمات رقمية في الجزائر. سجّل واطلب وتابع طلبك من حسابك.">
+<meta name="theme-color" content="#0FAA60">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-title" content="ONE FOR ALL">
+<meta property="og:title" content="ONE FOR ALL · واحد للكل، بالذكاء الاصطناعي">
+<meta property="og:description" content="أنا إسحاق، وفريقي هو الذكاء الاصطناعي: فيديوهات، صفحات هبوط، متاجر وخدمات رقمية. اطلب وتابع من حسابك.">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/hguhdfgh/media@9ca1c13/one-for-all/og.jpg">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%2322B04B'/%3E%3Ctext x='32' y='42' font-family='Arial' font-weight='800' font-size='26' fill='white' text-anchor='middle'%3E1A%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add('js');(function(c,n){try{var m=function(q){return matchMedia(q).matches},t=+localStorage.getItem('ofa_lowfx')||0;if(m('(prefers-reduced-motion: reduce)'))c.add('mo-rm');if((n.connection&&n.connection.saveData)||(n.deviceMemory&&n.deviceMemory<=2)||(n.hardwareConcurrency&&n.hardwareConcurrency<=2)||(m('(pointer:coarse)')&&n.hardwareConcurrency<=4&&n.deviceMemory&&n.deviceMemory<=4)||Date.now()-t<6048e5)c.add('mo-low')}catch(e){}})(document.documentElement.classList,navigator);try{if(!localStorage.getItem('ofa_theme'))document.documentElement.dataset.theme='light'}catch(e){document.documentElement.dataset.theme='light'}</script>
+<link rel="stylesheet" href="assets/app.css?v=32">
+<link rel="stylesheet" href="assets/landing.css?v=32">
+<link rel="stylesheet" href="assets/art.css?v=35">
+<link rel="stylesheet" href="assets/ui.css?v=36">
+<link rel="stylesheet" href="assets/brand.css?v=1">
+<link rel="stylesheet" href="assets/landing-plus.css?v=2">
+<link rel="stylesheet" href="assets/motion.css?v=1">
+<link rel="stylesheet" href="assets/reel.css?v=2">
+<link rel="stylesheet" href="assets/home-pages.css?v=1">
 </head>
 <body>
-<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
-<symbol id="i-wa" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 11.6a8.5 8.5 0 0 1-12.6 7.4L3.5 20.5l1.5-4.3A8.5 8.5 0 1 1 20.5 11.6z"/><path d="M8.7 8.6c.2-.5.5-.6.9-.6h.6l1 2.2-.6.9c.5 1.1 1.4 2 2.5 2.5l.9-.6 2.2 1v.6c0 .4-.1.7-.6.9-1.8.8-6.4-2.8-6.9-5.9z"/></g></symbol>
-<symbol id="i-form" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="3"/><path d="M8 8h8M8 12h8M8 16h5"/></g></symbol>
-<symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
-<symbol id="i-camera" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></g></symbol>
-<symbol id="i-lock" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"><rect x="5" y="10" width="14" height="10" rx="2.5"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></g></symbol>
-<symbol id="i-clock" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></g></symbol>
-<symbol id="i-pay" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><rect x="2.5" y="6" width="19" height="13" rx="2.5"/><path d="M2.5 10.5h19M7 15h3"/></g></symbol>
-<symbol id="i-ig" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.9"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/></g></symbol>
-</defs></svg>
-<div class="wrap nav"><div class="bar glass">
-<a class="brand" href="#top"><span class="mk"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M7 4v13h10" fill="none" stroke="#3DC163" stroke-width="2.4" stroke-linecap="round"/><path d="M12 2v9M17 6v8" fill="none" stroke="#F2F5F2" stroke-width="2.4" stroke-linecap="round"/></svg></span><span><span data-i="brand"></span><small data-i="brand_sub"></small></span></a>
-<nav class="links" aria-label="Sections"><a href="#services" data-i="n1"></a><a href="#ai" data-i="n2"></a><a href="#process" data-i="n3"></a><a href="#faq" data-i="n4"></a></nav>
-<button class="lang" id="lang" type="button"></button>
-<a class="btn pri sm" href="#order"><svg><use href="#i-form"/></svg><span class="t" data-i="order_now"></span></a>
-</div></div>
+<div id="prog"></div>
+<header class="hd" id="hd"><div class="wrap">
+  <a class="brand" href="#top" style="padding:0"><span class="logo">1A</span><span><b>ONE FOR ALL</b><small data-i="tagline"></small></span></a>
+  <nav aria-label="main"><a href="#services" data-i="n_services"></a><a href="#work" data-i="n_work"></a><a href="#how" data-i="n_how"></a><a href="#faq" data-i="n_faq"></a></nav>
+  <span class="sp"></span>
+  <span id="lsw"></span>
+  <a class="btn ghost dsk" href="app.html#/login" data-i="login"></a>
+  <a class="btn pri dsk" href="app.html#/register" data-i="register"></a>
+  <button class="btn icon burger" id="burger" aria-label="menu" aria-expanded="false" aria-controls="drawer"><span></span><span></span><span></span></button>
+</div></header>
+<div class="drawer" id="drawer">
+  <a href="#services" data-i="n_services"></a><a href="#work" data-i="n_work"></a><a href="#how" data-i="n_how"></a><a href="#faq" data-i="n_faq"></a>
+  <div class="row" style="margin-top:8px"><a class="btn grow" href="app.html#/login" data-i="login"></a><a class="btn pri grow" href="app.html#/register" data-i="register"></a></div>
+</div>
+
 <main id="top">
-<div class="wrap hero">
-<span class="blob" style="width:260px;height:260px;background:radial-gradient(circle,#9BE7B1,transparent 70%);top:-40px;inset-inline-end:30%;opacity:.7"></span>
-<div style="position:relative;z-index:1">
-<span class="eyebrow"><i></i><span data-i="eyebrow"></span></span>
-<h1 data-i-html="h1"></h1>
-<p class="lead" data-i="lead"></p>
-<div class="acts">
-<a class="btn pri" href="#order"><svg><use href="#i-form"/></svg><span data-i="cta_form"></span></a>
-<a class="btn wa" data-wa="other" href="#order"><svg><use href="#i-wa"/></svg><span data-i="cta_wa"></span></a>
-</div>
-<div class="stats">
-<div class="stat glass"><b>14 000 <small data-i="dzd"></small></b><span data-i="st1"></span></div>
-<div class="stat glass"><b>3 900 <small data-i="dzd"></small></b><span data-i="st2"></span></div>
-<div class="stat glass"><b>9:16</b><span data-i="st3"></span></div>
-</div>
-</div>
-<div class="demo" id="demo">
-<span class="blob" style="width:180px;height:180px;background:linear-gradient(135deg,#3DC163,#15843A);top:-20px;inset-inline-start:2%;opacity:.9;z-index:-1"></span>
-<span class="blob" style="width:120px;height:120px;border:14px solid #3DC163;bottom:70px;inset-inline-end:0;opacity:.5;z-index:-1"></span>
-<div class="phone"><div class="screen s1" id="screen" role="img" aria-label="Product to ad demo">
-<div class="scr-top"><span class="rec"><i></i>REC</span><span id="tc">00:00</span><span>1080×1920</span></div>
-<div class="ly l1"><span class="cap">IMG_2048.JPG</span></div>
-<div class="ly l2"><span class="note" style="top:18%;left:10%">KEY LIGHT</span><span class="note" style="top:30%;right:8%">PUSH-IN</span><span class="note" style="bottom:16%;left:12%">HERO SHOT</span></div>
-<div class="ly l3"><div class="ring"></div><div class="floor"></div></div>
-<div class="ly l4"><div class="sweep"></div><span class="dot" style="left:22%;top:60%"></span><span class="dot" style="left:70%;top:66%;animation-delay:.7s"></span><span class="dot" style="left:48%;top:72%;animation-delay:1.3s"></span></div>
-<div class="prod"><div class="c"></div><div class="n"></div><div class="b"></div></div>
-<div class="ly l5"><div class="head"><small>NEW</small><b data-i-html="ad_line"></b></div><div class="buy"><span data-i="ad_price"></span><span data-i="ad_cta"></span></div></div>
-</div></div>
-<div class="pills glass" id="pills" role="tablist" aria-label="Demo steps"></div>
-<span class="demo-note" data-i="demo_note"></span>
-</div>
-</div>
-<section class="s" id="problems"><div class="wrap">
-<div class="sh c"><span class="eyebrow"><i></i><span data-i="p_eye"></span></span><h2 data-i="p_h"></h2></div>
-<div class="probs">
-<div class="prob glass"><span class="ic"><svg><use href="#i-camera"/></svg></span><h3 data-i="p1q"></h3><p data-i="p1a"></p></div>
-<div class="prob glass"><span class="ic"><svg><use href="#i-lock"/></svg></span><h3 data-i="p2q"></h3><p data-i="p2a"></p></div>
-<div class="prob glass"><span class="ic"><svg><use href="#i-clock"/></svg></span><h3 data-i="p3q"></h3><p data-i="p3a"></p></div>
-</div>
+<section class="hero" id="hero"><span class="blob h1b drift"></span><span class="ring h2r drift b"></span><div class="wrap">
+  <div>
+    <span class="eyebrow hi" id="eyb"></span>
+    <h1 id="htitle" class="hi" style="--d:.08s"></h1>
+    <p class="lead hi" id="hsub" style="--d:.16s"></p>
+    <div class="row hi" style="--d:.24s"><a class="btn pri lg" href="app.html#/register" data-ii="register" data-icon="arrow"></a><a class="btn wa lg wa-link" target="_blank" rel="noopener" data-ii="wa_order" data-icon="wa"></a></div>
+    <div class="trust hi" style="--d:.32s"><span data-icon="shield" data-i="t1"></span><span data-icon="clock" data-i="t2"></span><span data-icon="cash" data-i="t3"></span></div>
+  </div>
+  <div class="mock" id="mock" aria-hidden="true">
+    <div class="card m1"><div class="float"><div class="row between"><span class="tiny faint ltr">OFA-0042</span><span class="chip i"><span class="dot"></span><span data-i="st_in_progress"></span></span></div><b style="display:block;margin:8px 0" data-i="mock1"></b><div class="bar"><i style="width:66%"></i></div><div class="steps" style="margin-top:10px"><div class="step done"><span class="d" data-icon="check"></span><span data-i="mk_s1"></span></div><div class="step done"><span class="d" data-icon="check"></span><span data-i="mk_s2"></span></div><div class="step"><span class="d"></span><span data-i="mk_s3"></span></div></div></div></div>
+    <div class="card m2"><div class="float d"><div class="row"><span class="av" data-icon="check"></span><div><b data-i="mock2"></b><div class="small muted ltr">14 000 DA · BaridiMob</div></div></div></div></div>
+    <div class="card m3"><div class="row small" style="gap:8px"><span class="dot" style="color:var(--green)"></span><b data-i="mock3"></b></div></div>
+  </div>
 </div></section>
-<section class="s" id="services"><div class="wrap">
-<div class="toolbar"><div class="sh" style="margin:0"><span class="eyebrow"><i></i><span data-i="s_eye"></span></span><h2 data-i="s_h"></h2></div>
-<div class="pills glass" id="filters" role="tablist" aria-label="Filter services"></div></div>
-<div class="grid" id="grid"></div>
+
+<div class="mq" aria-hidden="true"><div class="mq-t" id="mq"></div></div>
+
+<div id="sec_after_hero"></div>
+
+<section id="services"><div class="wrap">
+  <div class="center rv" style="margin-bottom:30px"><span class="eyebrow" data-i="n_services"></span><h2 class="h2" data-i="svc_t"></h2><p class="lead" data-i="svc_s"></p></div>
+  <div class="filters rv" id="filters" hidden></div>
+  <div class="grid g3" id="svc"><div class="svc-skel"></div><div class="svc-skel"></div><div class="svc-skel"></div></div>
 </div></section>
-<section class="s" id="pack"><div class="wrap">
-<div class="pack glass">
-<div class="art" aria-hidden="true">
-<span class="blob" style="width:200px;height:200px;border:18px solid rgba(255,255,255,.35);top:-50px;inset-inline-end:-40px"></span>
-<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:14px">
-<div style="width:22%;aspect-ratio:9/16;border-radius:16px;background:rgba(255,255,255,.25);border:1px solid rgba(255,255,255,.6);transform:rotate(-8deg) translateY(10px)"></div>
-<div style="width:26%;aspect-ratio:9/16;border-radius:18px;background:rgba(255,255,255,.45);border:1px solid rgba(255,255,255,.8);box-shadow:0 20px 40px rgba(0,0,0,.2)"></div>
-<div style="width:22%;aspect-ratio:9/16;border-radius:16px;background:rgba(255,255,255,.25);border:1px solid rgba(255,255,255,.6);transform:rotate(8deg) translateY(10px)"></div>
-</div>
-</div>
-<div class="body">
-<span class="eyebrow" style="align-self:flex-start"><i></i><span data-i="pk_eye"></span></span>
-<h3 data-i="pk_h"></h3>
-<ul id="pk_list"></ul>
-<div class="totals">
-<div><div class="l" data-i="total"></div><div class="v" id="pk_total">14 000</div></div>
-<div style="display:flex;flex-direction:column;gap:6px;align-items:flex-end"><span class="l" data-i="packs"></span>
-<div class="stepper"><button type="button" id="pk_minus" aria-label="-">−</button><output id="pk_qty" aria-live="polite">1</output><button type="button" id="pk_plus" aria-label="+">+</button></div></div>
-</div>
-<a class="btn pri block" href="#order" id="pk_go"><svg><use href="#i-form"/></svg><span data-i="order_pack"></span></a>
-</div>
-</div>
+
+<div id="sec_after_services"></div>
+
+<section id="work" aria-roledescription="carousel"><span class="blob drift"></span><span class="ring drift b"></span>
+  <div class="wrap wk-head">
+    <div class="rv"><span class="eyebrow" data-i="n_work"></span><h2 class="h2" data-i="work_t"></h2><p class="lead" style="margin:0" data-i="work_s"></p></div>
+    <div class="wk-ctl rv" style="--d:.1s"><button class="btn" id="wkPrev"></button><span class="wk-count" id="wkCount"></span><button class="btn pri" id="wkNext"></button></div>
+  </div>
+  <div class="track rv zoom" id="track" tabindex="0" style="--d:.15s"></div>
+  <div class="dots" id="dots" role="tablist"></div>
+</section>
+
+<section id="how"><div class="wrap">
+  <div class="center rv" style="margin-bottom:34px"><span class="eyebrow" data-i="n_how"></span><h2 class="h2" data-i="how_t"></h2></div>
+  <div class="steps3">
+    <div class="card rv" style="--d:0s"><span class="si" data-icon="user"></span><h3 data-i="h1"></h3><p class="muted" style="margin:0" data-i="h1s"></p></div>
+    <div class="card rv" style="--d:.1s"><span class="si" data-icon="cash"></span><h3 data-i="h2"></h3><p class="muted" style="margin:0" data-i="h2s"></p></div>
+    <div class="card rv" style="--d:.2s"><span class="si" data-icon="chart"></span><h3 data-i="h3"></h3><p class="muted" style="margin:0" data-i="h3s"></p></div>
+  </div>
 </div></section>
-<section class="s" id="ai"><div class="wrap two">
-<div class="sh" style="margin:0"><span class="eyebrow"><i></i><span data-i="ai_eye"></span></span><h2 data-i="ai_h"></h2><p data-i="ai_p"></p></div>
-<div class="split glass" id="aitbl"></div>
+
+<section style="padding-top:20px"><div class="wrap"><div class="band rv zoom"><span class="blob drift"></span><span class="ring drift b"></span>
+  <div><h2 class="h2" data-i="band_t"></h2><p class="lead" data-i="band_s"></p><a class="btn lg" href="app.html#/register" data-ii="register" data-icon="arrow"></a></div>
+  <ul><li class="rv side" style="--d:.15s" data-icon="bag" data-i="b1"></li><li class="rv side" style="--d:.22s" data-icon="chart" data-i="b2"></li><li class="rv side" style="--d:.29s" data-icon="download" data-i="b3"></li><li class="rv side" style="--d:.36s" data-icon="wa" data-i="b4"></li></ul>
+</div></div></section>
+
+<section id="faq"><div class="wrap" style="max-width:780px">
+  <div class="center rv" style="margin-bottom:26px"><span class="eyebrow" data-i="n_faq"></span><h2 class="h2" data-i="faq_t"></h2></div>
+  <div id="faql"></div>
 </div></section>
-<section class="s" id="process"><div class="wrap">
-<div class="sh c"><span class="eyebrow"><i></i><span data-i="pr_eye"></span></span><h2 data-i="pr_h"></h2></div>
-<div class="steps" id="steps"></div>
-</div></section>
-<section class="s" id="order"><div class="wrap order">
-<div class="side glass">
-<span class="eyebrow" style="align-self:flex-start;background:rgba(255,255,255,.1);color:#CFF3DA;border-color:rgba(255,255,255,.15)"><i></i><span data-i="o_eye"></span></span>
-<h2 data-i="o_h"></h2><p data-i="o_p"></p>
-<div class="row"><svg><use href="#i-wa"/></svg><span class="num" id="num"></span></div>
-<div class="row"><svg><use href="#i-pay"/></svg><span data-i="o_pay"></span></div>
-<div class="row"><svg><use href="#i-clock"/></svg><span data-i="o_time"></span></div>
-<div class="row"><svg><use href="#i-ig"/></svg><a href="https://instagram.com/ishak_laieb" target="_blank" rel="noopener">@ishak_laieb</a></div>
-</div>
-<div class="panel glass">
-<div class="tabs" role="tablist"><button type="button" class="on" id="t-form" role="tab" aria-selected="true"><svg><use href="#i-form"/></svg><span data-i="tab_form"></span></button><button type="button" id="t-wa" role="tab" aria-selected="false"><svg><use href="#i-wa"/></svg><span data-i="tab_wa"></span></button></div>
-<div class="pane" id="p-form">
-<form id="of" novalidate>
-<div class="f"><label for="o_name" data-i="f_name"></label><input id="o_name" name="name" autocomplete="name" maxlength="80"><span class="msg" data-i="e_name"></span></div>
-<div class="f"><label for="o_wa" data-i="f_wa"></label><input id="o_wa" name="whatsapp" type="tel" inputmode="tel" autocomplete="tel" placeholder="0555 12 34 56" maxlength="20" dir="ltr"><span class="msg" data-i="e_wa"></span></div>
-<div class="f full"><label for="o_biz"><span data-i="f_biz"></span> <span class="opt" data-i="optional"></span></label><input id="o_biz" name="business" maxlength="120"></div>
-<div class="f full"><span class="lb" id="svc-lb" data-i="f_svc"></span><div class="chips" id="svc" role="radiogroup" aria-labelledby="svc-lb"></div><span class="msg" data-i="e_svc"></span></div>
-<div class="f full" id="qty-row" hidden><span class="lb" data-i="packs"></span><div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap"><div class="stepper"><button type="button" id="f_minus" aria-label="-">−</button><output id="f_qty">1</output><button type="button" id="f_plus" aria-label="+">+</button></div><span class="help" id="f_total"></span></div></div>
-<div class="f full"><label for="o_msg"><span data-i="f_msg"></span> <span class="opt" data-i="optional"></span></label><textarea id="o_msg" name="message" maxlength="1500"></textarea><span class="help" data-i="f_msg_h"></span></div>
-<div class="hp" aria-hidden="true"><label for="o_web">Website</label><input id="o_web" name="website" tabindex="-1" autocomplete="off"></div>
-<div class="alert" id="o_err" hidden></div>
-<div class="form-foot"><button class="btn pri block" type="submit" id="o_send"><svg><use href="#i-check"/></svg><span data-i="send"></span></button><span class="note" data-i="f_note"></span></div>
-</form>
-<div class="done" id="o_done" hidden><span class="ok"><svg><use href="#i-check"/></svg></span><h3 data-i="d_h"></h3><p data-i="d_p"></p><a class="btn wa" id="d_wa" href="#" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg><span data-i="d_wa"></span></a><button class="btn soft sm" type="button" id="d_again" data-i="d_again"></button></div>
-</div>
-<div class="pane" id="p-wa" hidden><div class="wa-list" id="walist"></div></div>
-</div>
-</div></section>
-<section class="s" id="faq"><div class="wrap">
-<div class="sh c"><span class="eyebrow"><i></i><span data-i="q_eye"></span></span><h2 data-i="q_h"></h2></div>
-<div class="faq" id="faqlist"></div>
-</div></section>
-<div class="wrap"><footer><span data-i="foot"></span><span>© <span id="yr"></span> · <a href="https://instagram.com/ishak_laieb" target="_blank" rel="noopener">@ishak_laieb</a></span></footer></div>
+
+<div id="sec_before_footer"></div>
+
+<section style="padding-top:10px"><div class="wrap"><div class="cta center rv zoom"><span class="blob drift"></span><span class="ring drift b"></span><h2 class="h2" data-i="cta_t"></h2><p class="lead" data-i="cta_s"></p><div class="row" style="justify-content:center;margin-top:18px"><a class="btn pri lg" href="app.html#/register" data-ii="register" data-icon="arrow"></a><a class="btn wa lg wa-link" target="_blank" rel="noopener" data-ii="wa_order" data-icon="wa"></a></div></div></div></section>
 </main>
-<a class="fab" data-wa="other" href="#order" aria-label="WhatsApp"><svg><use href="#i-wa"/></svg></a>
-<script>
-const CFG = {
-whatsapp: "+213784221806",
-instagram: "ishak_laieb",
-supabaseUrl: "https://fvuowkqyrugygcrvkwwp.supabase.co",
-supabaseKey: "sb_publishable_iBRUEPugJshK4s5fytF7Tg_AUry3L7Z" // publishable key: can only INSERT new orders (row-level security)
-};
-const TX = {
-brand:["إسحاق","ISHAK"], brand_sub:["إعلانات إبداعية","Creative ads"], n1:["الخدمات","Services"], n2:["الذكاء الاصطناعي","AI"], n3:["المراحل","Process"], n4:["أسئلة","FAQ"],
-order_now:["اطلب الآن","Order now"], dzd:["دج","DZD"],
-eyebrow:["وكالة إعلانات إبداعية · الجزائر","Creative ad agency · Algeria"],
-h1:["من صورة بالتلفون<br>إلى <span class='g'>إعلان يبيع</span>","From a phone photo<br>to an <span class='g'>ad that sells</span>"],
-lead:["فيديوهات إعلانية للمنتجات والخدمات بالذكاء الاصطناعي: فكرة، مشهد، حركة، وإعلان نهائي جاهز لتيك توك وفيسبوك وإنستغرام. ونوفرلك الحساب الإعلاني باش تنشرو.","AI-made ad videos for products and services: concept, scene, motion and a finished ad ready for TikTok, Facebook and Instagram. We also provide the ad account to run it."],
-cta_form:["اطلب عبر الاستمارة","Order with the form"], cta_wa:["اطلب في واتساب","Order on WhatsApp"],
-st1:["3 إعلانات إبداعية","3 creative ads"], st2:["حساب TikTok / Meta","TikTok / Meta account"], st3:["فيديو عمودي لكل المنصات","Vertical for every platform"],
-demo:[["المنتج","Product"],["الفكرة","Concept"],["مشهد AI","AI scene"],["الحركة","Motion"],["الإعلان","Final ad"]],
-demo_note:["مثال توضيحي بمنتج خيالي","Illustrative demo with a fictional product"],
-ad_line:["ريحة تدوم<br>طول النهار","A scent that<br>lasts all day"], ad_price:["2 900 دج","2 900 DZD"], ad_cta:["اطلب الآن","Order now"],
-p_eye:["واش نحلّو","What we fix"], p_h:["ثلاث مشاكل نسمعوها كل أسبوع","Three problems we hear every week"],
-p1q:["المنتج مليح بصح الإعلان ما يبيعش","Good product, ads that don't sell"], p1a:["صورة بالتلفون ما تكفيش. نحوّلوها لفيديو بمشهد وحركة وسكريبت يوقف السكرول.","A phone photo isn't enough. We turn it into a video with a scene, motion and a script that stops the scroll."],
-p2q:["الحساب الإعلاني يتبلوكا","My ad account keeps getting blocked"], p2a:["نوفرولك حساب TikTok أو Meta Ads باش تنشر إعلاناتك بلا توقف.","We provide a TikTok or Meta ads account so your ads keep running."],
-p3q:["ما عنديش الوقت ولا الفريق","No time, no team"], p3a:["تبعثلنا المنتج، ونتكفلو بالباقي من السكريبت حتى الفيديو النهائي.","Send us your product and we handle the rest, from script to final video."],
-s_eye:["الخدمات","Services"], s_h:["كل ما يحتاجه إعلانك","Everything your ad needs"],
-filters:[["all","الكل","All"],["creative","الإنتاج","Creative"],["accounts","الحسابات","Accounts"],["web","الويب","Web"],["more","أخرى","More"]],
-order:["اطلب","Order"], quote:["حسب المشروع","Quoted"], ask:["اسأل","Ask"],
-pk_eye:["الأكثر طلباً","Most requested"], pk_h:["باقة 3 إعلانات إبداعية","3 Creative Ads pack"],
-pk_list:[["3 فيديوهات إعلانية عمودية 9:16","3 vertical 9:16 ad videos"],["AI، موشن، أو فيديو منتج حسب منتجك","AI, motion or product video, matched to your product"],["سكريبت ومراجعة قبل التسليم","Script and review before delivery"],["جاهزة لتيك توك، فيسبوك وإنستغرام","Ready for TikTok, Facebook and Instagram"]],
-total:["السعر الإجمالي","Total price"], packs:["عدد الباقات","Packs"], order_pack:["اطلب هذه الباقة","Order this pack"],
-ai_eye:["كيفاش نستعملو AI","How we use AI"], ai_h:["الذكاء الاصطناعي يسرّع. القرار يبقى عندنا.","AI speeds things up. We make the calls."],
-ai_p:["أدوات AI تصنع المشاهد والخلفيات والحركة اللي كانت تحتاج استوديو. السكريبت، الإخراج، المونتاج والمراجعة خدمة بشرية. وقريباً نزيدو التصوير الاحترافي.","AI tools create the scenes, backgrounds and motion that used to need a studio. Script, direction, editing and review stay human. Professional filming is coming soon."],
-ai_rows:[["الذكاء الاصطناعي","AI"],["نحن","Us"],["مشاهد وخلفيات للمنتج","Product scenes and backgrounds"],["الفكرة والسكريبت","Concept and script"],["حركة الكاميرا والإضاءة","Camera moves and lighting"],["الإخراج واختيار اللقطات","Direction and shot choice"],["نسخ متعددة للاختبار","Variations for testing"],["المونتاج، الصوت والنص","Editing, audio and text"],["سرعة في التسليم","Faster delivery"],["المراجعة قبل ما يوصلك","Review before it reaches you"]],
-pr_eye:["المراحل","Process"], pr_h:["من أول رسالة حتى الإعلان النهائي","From first message to final ad"],
-steps:[["تطلب","You order","بالاستمارة أو في واتساب.","With the form or on WhatsApp."],["نفهمو مشروعك","We understand your project","نختارو الخدمة ونكتبو السكريبت.","We pick the service and write the script."],["الدفع","Payment","بريدي موب أو CCP.","BaridiMob or CCP."],["الإنتاج والمراجعة","Production & review","نبعثولك النسخة الأولى وتقول رأيك.","First version sent for your feedback."],["التسليم","Delivery","في المدة المتفق عليها.","Within the agreed time."]],
-o_eye:["اطلب","Order"], o_h:["عندك منتج؟ نديرولو إعلان.","Got a product? Let's make its ad."], o_p:["اختار الطريقة اللي تريحك: استمارة سريعة ونتصلو بيك، ولا محادثة واتساب مباشرة.","Pick what suits you: a quick form and we contact you, or a direct WhatsApp chat."],
-o_pay:["الدفع: بريدي موب أو CCP","Payment: BaridiMob or CCP"], o_time:["نرد عليك في أقرب وقت","We reply as soon as possible"],
-tab_form:["استمارة","Form"], tab_wa:["واتساب","WhatsApp"],
-f_name:["الاسم","Name"], f_wa:["رقم واتساب","WhatsApp number"], f_biz:["المتجر / النشاط","Store / business"], optional:["(اختياري)","(optional)"],
-f_svc:["الخدمة","Service"], f_msg:["واش تبيع؟ احكيلنا على منتجك","What do you sell? Tell us about your product"], f_msg_h:["رابط المتجر أو الصفحة يساعدنا نفهمو أسرع.","A link to your store or page helps us understand faster."],
-e_name:["اكتب اسمك (حرفين على الأقل)","Enter your name (at least 2 letters)"], e_wa:["اكتب رقم واتساب صحيح، مثلاً 0555123456","Enter a valid WhatsApp number, e.g. 0555123456"], e_svc:["اختار خدمة","Choose a service"],
-send:["أرسل الطلب","Send order"], sending:["جارٍ الإرسال…","Sending…"], f_note:["نستعملو معلوماتك غير باش نتواصلو معاك بخصوص طلبك.","We only use your details to contact you about this order."],
-e_net:["ما قدرناش نبعثو الطلب. جرّب مرة أخرى أو اطلب مباشرة في واتساب.","We couldn't send your order. Try again or order directly on WhatsApp."],
-d_h:["وصلنا طلبك","We got your order"], d_p:["نتصلو بيك في واتساب قريب. إذا حاب تسرّع، ابعثلنا رسالة دركا.","We'll contact you on WhatsApp soon. Want to speed it up? Message us now."], d_wa:["كمّل في واتساب","Continue on WhatsApp"], d_again:["طلب آخر","Another order"],
-wa_open:["افتح ←","Open →"],
-q_eye:["أسئلة","FAQ"], q_h:["أسئلة يسقسيوها بزاف","Questions people ask"],
-faq:[["كيفاش نخلّص؟","How do I pay?","بريدي موب أو CCP، قبل بداية الإنتاج.","BaridiMob or CCP, before production starts."],["شحال تاخذ المدة؟","How long does it take?","نتفقو على المدة قبل الدفع حسب الخدمة وعدد الإعلانات.","We agree on the timeline before payment, depending on the service and number of ads."],["واش نحتاج نبعثلكم؟","What do I need to send?","صور المنتج (حتى بالتلفون)، واش يميّزو، والسعر. الباقي علينا.","Product photos (phone is fine), what makes it special, and the price. We do the rest."],["واش هو الحساب الإعلاني TikTok / Meta؟","What is the TikTok / Meta ad account?","حساب إعلاني جاهز تطلق بيه حملاتك. نشرحولك واش يشمل قبل الشراء.","A ready ads account to launch your campaigns. We explain what's included before you buy."],["بطاقة الدفع الافتراضية كيفاش؟","How does the virtual card work?","نساعدك تفتح بطاقة باسمك وبهويتك أنت، باش تخلّص الإعلانات والاشتراكات.","We help you open a card in your own name, with your own ID, to pay for ads and subscriptions."]],
-foot:["إسحاق · وكالة إعلانات إبداعية · الجزائر","ISHAK · Creative ad agency · Algeria"]
-};
-// service catalogue shown on the site; ids match the agency OS
-const SVC = [
-{ id:"creative_ads", cat:"creative", price:14000, unit:["3 إعلانات","3 ads"], name:["إعلانات إبداعية","Creative Ads"], desc:["فيديوهات AI، موشن جرافيكس، فيديو منتج وريلز.","AI videos, motion graphics, product videos and reels."], art:0 },
-{ id:"tiktok_acc", cat:"accounts", price:3900, name:["حساب TikTok Ads","TikTok Ads account"], desc:["حساب إعلاني جاهز لإطلاق حملاتك على تيك توك.","A ready ads account to run your TikTok campaigns."], art:1 },
-{ id:"meta_acc", cat:"accounts", price:3900, name:["حساب Facebook / Meta Ads","Facebook / Meta Ads account"], desc:["لإعلانات فيسبوك وإنستغرام بلا توقف.","For uninterrupted Facebook and Instagram ads."], art:2 },
-{ id:"landing", cat:"web", price:0, name:["صفحة هبوط","Landing page"], desc:["صفحة واحدة تحوّل الزوار اللي جاو من الإعلان لطلبات.","One page that turns ad visitors into orders."], art:3 },
-{ id:"card", cat:"more", price:0, name:["بطاقة دفع افتراضية","Virtual payment card"], desc:["نساعدك تفتح بطاقتك بهويتك لتخليص الإعلانات.","We help you open your own card to pay for ads."], art:4 },
-{ id:"subs", cat:"more", price:0, name:["CapCut Pro · Gemini Pro","CapCut Pro · Gemini Pro"], desc:["اشتراك على حسابك الخاص.","A subscription on your own account."], art:5 }
-];
-const MSG = { creative_ads:["حاب نطلب إعلانات إبداعية","I'd like to order Creative Ads"], tiktok_acc:["حاب حساب TikTok Ads","I'd like a TikTok Ads account"], meta_acc:["حاب حساب Facebook / Meta Ads","I'd like a Facebook / Meta Ads account"], landing:["حاب صفحة هبوط","I'd like a landing page"], card:["حاب نفتح بطاقة دفع افتراضية","I'd like help with a virtual card"], subs:["حاب اشتراك CapCut Pro / Gemini Pro","I'd like a CapCut Pro / Gemini Pro subscription"], other:["عندي سؤال","I have a question"] };
-const TAG = { creative_ads:"OFA-VID", tiktok_acc:"OFA-TT", meta_acc:"OFA-META", landing:"OFA-LP", card:"OFA-CARD", subs:"OFA-SUB", other:"OFA-WEB" };
-let L = "ar"; try { L = localStorage.getItem("ofa-site-lang") || ((navigator.language||"").startsWith("ar") ? "ar" : "ar"); } catch (e) {}
-const tx = k => { const v = TX[k]; return Array.isArray(v) && typeof v[0] === "string" ? v[L === "ar" ? 0 : 1] : ""; };
-const pick = p => p[L === "ar" ? 0 : 1];
-const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" }[c]));
-const fmt = n => Math.round(n).toLocaleString("en-US").replace(/,/g, " ");
-const waNum = () => CFG.whatsapp.replace(/\D/g, "");
-const waLink = (key, extra) => `https://wa.me/${waNum()}?text=${encodeURIComponent(`${L === "ar" ? "السلام عليكم، " : "Hello, "}${pick(MSG[key] || MSG.other)}${extra ? " — " + extra : ""}. [${TAG[key] || TAG.other}]`)}`;
-const artHtml = i => {
-const bg = ["radial-gradient(90% 70% at 50% 30%,#8BE5A6,#2BAA50 55%,#0F5A27)","linear-gradient(140deg,#0E1F15,#24402E)","linear-gradient(140deg,#DDF1E3,#A9E3BC)","linear-gradient(160deg,#F4FBF6,#CFE5D6)","linear-gradient(140deg,#173B25,#22B04B)","linear-gradient(140deg,#C9F0D5,#EAF6EE)"][i];
-const inner = [
-`<div style="position:absolute;left:50%;top:52%;width:22%;aspect-ratio:.55;transform:translate(-50%,-50%);border-radius:14px;background:linear-gradient(100deg,rgba(255,255,255,.95),rgba(61,193,99,.75) 60%,#0F5A27);box-shadow:0 14px 30px rgba(0,0,0,.3)"></div>`,
-`<div style="position:absolute;inset:22% 24%;border-radius:14px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);display:flex;flex-direction:column;justify-content:flex-end;gap:6px;padding:12px"><span style="height:6px;width:70%;background:#3DC163;border-radius:3px"></span><span style="height:6px;width:45%;background:rgba(255,255,255,.3);border-radius:3px"></span></div><span style="position:absolute;top:18%;inset-inline-end:18%;font-weight:700;color:#3DC163;font-size:22px;direction:ltr">TikTok</span>`,
-`<div style="position:absolute;inset:20% 18%;border-radius:16px;background:#fff;box-shadow:0 10px 24px rgba(21,132,58,.18);display:grid;grid-template-columns:1fr 1fr;gap:6px;padding:10px"><span style="background:#C9F0D5;border-radius:8px"></span><span style="background:#EAF6EE;border-radius:8px"></span><span style="background:#EAF6EE;border-radius:8px"></span><span style="background:#22B04B;border-radius:8px"></span></div>`,
-`<div style="position:absolute;inset:16% 22%;border-radius:14px;background:#fff;box-shadow:0 10px 24px rgba(21,132,58,.18);padding:10px;display:flex;flex-direction:column;gap:6px"><span style="height:40%;background:linear-gradient(135deg,#3DC163,#15843A);border-radius:8px"></span><span style="height:6px;width:80%;background:#CFE5D6;border-radius:3px"></span><span style="height:6px;width:55%;background:#CFE5D6;border-radius:3px"></span><span style="margin-top:auto;height:16px;width:50%;background:#22B04B;border-radius:99px"></span></div>`,
-`<div style="position:absolute;left:50%;top:50%;width:58%;aspect-ratio:1.6;transform:translate(-50%,-50%) rotate(-6deg);border-radius:14px;background:linear-gradient(135deg,rgba(255,255,255,.35),rgba(255,255,255,.1));border:1px solid rgba(255,255,255,.5);box-shadow:0 14px 30px rgba(0,0,0,.25)"><span style="position:absolute;bottom:12px;inset-inline-start:14px;color:#fff;font-weight:700;font-size:13px;direction:ltr">VISA •••• 2048</span></div>`,
-`<div style="position:absolute;left:30%;top:50%;width:26%;aspect-ratio:1;transform:translate(-50%,-50%);border-radius:22px;background:#0E1F15;display:grid;place-items:center;color:#fff;font-weight:700;font-size:12px">CapCut</div><div style="position:absolute;left:66%;top:50%;width:26%;aspect-ratio:1;transform:translate(-50%,-50%);border-radius:22px;background:linear-gradient(135deg,#3DC163,#15843A);display:grid;place-items:center;color:#fff;font-weight:700;font-size:12px">Gemini</div>`][i];
-return `<div style="position:absolute;inset:0;background:${bg}"></div>${inner}`;
-};
-let filter = "all", packQty = 1, formQty = 1, selSvc = "";
-function paint() {
-document.documentElement.lang = L; document.documentElement.dir = L === "ar" ? "rtl" : "ltr";
-document.querySelectorAll("[data-i]").forEach(el => el.textContent = tx(el.dataset.i));
-document.querySelectorAll("[data-i-html]").forEach(el => el.innerHTML = tx(el.dataset.iHtml));
-document.getElementById("lang").textContent = L === "ar" ? "English" : "العربية";
-document.getElementById("num").textContent = CFG.whatsapp.replace(/^\+213(\d{3})(\d{2})(\d{2})(\d{2})$/, "+213 $1 $2 $3 $4");
-document.getElementById("filters").innerHTML = TX.filters.map(f => `<button type="button" role="tab" aria-selected="${filter === f[0]}" class="${filter === f[0] ? "on" : ""}" data-f="${f[0]}">${esc(L === "ar" ? f[1] : f[2])}</button>`).join("");
-document.getElementById("grid").innerHTML = SVC.map(s => `<article class="card glass" data-cat="${s.cat}" ${filter !== "all" && filter !== s.cat ? "hidden" : ""}><div class="vis">${artHtml(s.art)}${s.unit ? `<span class="tg">${esc(pick(s.unit))}</span>` : ""}</div><div class="bd"><h3>${esc(pick(s.name))}</h3><p>${esc(pick(s.desc))}</p><div class="ft">${s.price ? `<span class="price">${fmt(s.price)}<small>${tx("dzd")}</small></span>` : `<span class="price q">${tx("quote")}</span>`}<a class="btn pri sm" href="#order" data-order="${s.id}">${s.price ? tx("order") : tx("ask")}</a></div></div></article>`).join("");
-document.getElementById("pk_list").innerHTML = TX.pk_list.map(p => `<li><svg><use href="#i-check"/></svg><span>${esc(pick(p))}</span></li>`).join("");
-let h = ""; const r = TX.ai_rows; for (let i = 0; i < r.length; i += 2) h += `<div class="r ${i ? "" : "h"}"><div>${esc(pick(r[i]))}</div><div>${esc(pick(r[i + 1]))}</div></div>`;
-document.getElementById("aitbl").innerHTML = h;
-document.getElementById("steps").innerHTML = TX.steps.map((s, i) => `<div class="step glass"><span class="n">${i + 1}</span><b>${esc(L === "ar" ? s[0] : s[1])}</b><p>${esc(L === "ar" ? s[2] : s[3])}</p></div>`).join("");
-document.getElementById("svc").innerHTML = SVC.map(s => `<label><input type="radio" name="service" value="${s.id}" ${selSvc === s.id ? "checked" : ""}>${esc(pick(s.name))}</label>`).join("") + `<label><input type="radio" name="service" value="other" ${selSvc === "other" ? "checked" : ""}>${L === "ar" ? "شيء آخر" : "Something else"}</label>`;
-document.getElementById("walist").innerHTML = [...SVC.map(s => [s.id, pick(s.name), s.price ? `${fmt(s.price)} ${tx("dzd")}` : tx("quote")]), ["other", L === "ar" ? "سؤال آخر" : "Another question", ""]].map(([id, n, p]) => `<a class="wa-item" href="${waLink(id)}" target="_blank" rel="noopener"><span class="ic"><svg><use href="#i-wa"/></svg></span><span><b>${esc(n)}</b><span>${esc(p)}</span></span><span class="go">${tx("wa_open")}</span></a>`).join("");
-document.getElementById("faqlist").innerHTML = TX.faq.map(q => `<details class="glass"><summary>${esc(L === "ar" ? q[0] : q[1])}</summary><p>${esc(L === "ar" ? q[2] : q[3])}</p></details>`).join("");
-document.querySelectorAll("[data-wa]").forEach(a => { a.href = waLink(a.dataset.wa); a.target = "_blank"; a.rel = "noopener"; });
-document.getElementById("yr").textContent = new Date().getFullYear();
-document.getElementById("pills").innerHTML = TX.demo.map((d, i) => `<button type="button" role="tab" data-step="${i + 1}">${esc(pick(d))}</button>`).join("");
-updatePack(); updateQty(); setStep(step);
-}
-function updatePack() { document.getElementById("pk_qty").textContent = packQty; document.getElementById("pk_total").innerHTML = `${fmt(14000 * packQty)} <small style="font-size:.5em;color:var(--muted)">${tx("dzd")}</small>`; }
-function updateQty() { document.getElementById("qty-row").hidden = selSvc !== "creative_ads"; document.getElementById("f_qty").textContent = formQty; document.getElementById("f_total").textContent = `${tx("total")}: ${fmt(14000 * formQty)} ${tx("dzd")} · ${formQty * 3} ${L === "ar" ? "إعلانات" : "ads"}`; }
-// demo
-let step = 1, timer = null; const DUR = 2600; const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
-function setStep(n) { step = n; document.getElementById("screen").className = "screen s" + n; document.querySelectorAll("#pills button").forEach((b, i) => { b.classList.toggle("on", i + 1 === n); b.setAttribute("aria-selected", i + 1 === n); }); document.getElementById("tc").textContent = `00:${String((n - 1) * 3).padStart(2, "0")}`; }
-function play() { clearInterval(timer); if (reduce) return; document.getElementById("pills").classList.remove("paused"); timer = setInterval(() => setStep(step % 5 + 1), DUR); }
-document.documentElement.style.setProperty("--dur", DUR + "ms");
-// tabs
-function showTab(wa) { document.getElementById("t-form").classList.toggle("on", !wa); document.getElementById("t-wa").classList.toggle("on", wa); document.getElementById("t-form").setAttribute("aria-selected", !wa); document.getElementById("t-wa").setAttribute("aria-selected", wa); document.getElementById("p-form").hidden = wa; document.getElementById("p-wa").hidden = !wa; }
-// form
-const $ = id => document.getElementById(id);
-function setErr(id, on) { $(id).closest(".f").classList.toggle("err", on); $(id).setAttribute("aria-invalid", on); }
-function validWa(v) { const d = v.replace(/[^\d+]/g, ""); return /^(\+?213|0)?[567]\d{8}$/.test(d.replace(/^\+/, "+")) || /^\+?\d{8,15}$/.test(d); }
-async function submitOrder(e) {
-e.preventDefault();
-const name = $("o_name").value.trim(), wa = $("o_wa").value.trim(), biz = $("o_biz").value.trim(), msg = $("o_msg").value.trim();
-const svc = (document.querySelector("#svc input:checked") || {}).value || "";
-let bad = false;
-setErr("o_name", name.length < 2); bad ||= name.length < 2;
-const wOk = validWa(wa); setErr("o_wa", !wOk); bad ||= !wOk;
-$("svc").closest(".f").classList.toggle("err", !svc); bad ||= !svc;
-if (bad) { (document.querySelector(".f.err input, .f.err textarea") || $("svc").querySelector("input"))?.focus(); return; }
-if ($("o_web").value) { showDone(svc); return; } // bot trap
-const btn = $("o_send"); btn.disabled = true; btn.querySelector("span").textContent = tx("sending"); $("o_err").hidden = true;
-const message = (svc === "creative_ads" ? `[${formQty}× 3 Creative Ads = ${14000 * formQty} DZD] ` : "") + msg;
-try {
-const r = await fetch(`${CFG.supabaseUrl}/rest/v1/leads`, { method: "POST", headers: { "Content-Type": "application/json", apikey: CFG.supabaseKey, Authorization: `Bearer ${CFG.supabaseKey}`, Prefer: "return=minimal" },
-body: JSON.stringify({ name, whatsapp: wa.replace(/[^\d+ ]/g, "").slice(0, 20), business: biz || null, service: svc, message: message.slice(0, 1500) || null, lang: L, source: "website" }) });
-if (!r.ok) throw new Error(r.status);
-showDone(svc, name);
-} catch (err) {
-$("o_err").innerHTML = `${esc(tx("e_net"))} <a href="${waLink(svc || "other", name)}" target="_blank" rel="noopener" style="font-weight:600">WhatsApp</a>`; $("o_err").hidden = false;
-} finally { btn.disabled = false; btn.querySelector("span").textContent = tx("send"); }
-}
-function showDone(svc, name) { $("of").hidden = true; $("o_done").hidden = false; $("d_wa").href = waLink(svc || "other", name || ""); $("o_done").querySelector("h3").focus?.(); }
-document.addEventListener("click", e => {
-const t = e.target;
-if (t.id === "lang") { L = L === "ar" ? "en" : "ar"; try { localStorage.setItem("ofa-site-lang", L); } catch (er) {} paint(); return; }
-const st = t.closest("#pills button"); if (st) { setStep(+st.dataset.step); clearInterval(timer); $("pills").classList.add("paused"); setTimeout(play, 6000); return; }
-const f = t.closest("#filters button"); if (f) { filter = f.dataset.f; document.querySelectorAll("#filters button").forEach(b => { b.classList.toggle("on", b === f); b.setAttribute("aria-selected", b === f); }); document.querySelectorAll("#grid .card").forEach(c => c.hidden = filter !== "all" && c.dataset.cat !== filter); return; }
-const o = t.closest("[data-order]"); if (o) { selSvc = o.dataset.order; showTab(false); paint(); }
-if (t.closest("#pk_go")) { selSvc = "creative_ads"; formQty = packQty; showTab(false); paint(); }
-if (t.closest("#pk_minus")) { packQty = Math.max(1, packQty - 1); updatePack(); }
-if (t.closest("#pk_plus")) { packQty = Math.min(20, packQty + 1); updatePack(); }
-if (t.closest("#f_minus")) { formQty = Math.max(1, formQty - 1); updateQty(); }
-if (t.closest("#f_plus")) { formQty = Math.min(20, formQty + 1); updateQty(); }
-if (t.closest("#t-form")) showTab(false);
-if (t.closest("#t-wa")) showTab(true);
-if (t.id === "d_again") { $("of").reset(); selSvc = ""; formQty = 1; $("of").hidden = false; $("o_done").hidden = true; paint(); }
-});
-document.addEventListener("change", e => { if (e.target.name === "service") { selSvc = e.target.value; $("svc").closest(".f").classList.remove("err"); updateQty(); } });
-document.addEventListener("input", e => { const f = e.target.closest(".f.err"); if (f && e.target.matches("input,textarea")) { f.classList.remove("err"); e.target.removeAttribute("aria-invalid"); } });
-$("of").addEventListener("submit", submitOrder);
-paint(); if (reduce) setStep(5); else play();
-</script>
+
+<footer><div class="wrap row between"><div class="row"><span class="logo" style="width:30px;height:30px;font-size:12px">1A</span><span>© <span id="yr"></span> ONE FOR ALL</span></div><div class="row"><a href="app.html#/login" data-i="login"></a><a class="wa-link" target="_blank" rel="noopener">WhatsApp <span class="ltr">0784 22 18 06</span></a></div></div></footer>
+<div class="mbar" id="mbar"><a class="btn pri" href="app.html#/register" data-i="register"></a><a class="btn wa wa-link" target="_blank" rel="noopener" data-ii="wa_order" data-icon="wa"></a></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script src="assets/core.js?v=32"></script>
+<script src="assets/landing.js?v=34"></script>
+<script src="assets/solo.js?v=1"></script>
+<script src="assets/pwa.js?v=1"></script>
+<script src="assets/reviews.js?v=1"></script>
+<script src="assets/brand.js?v=35"></script>
+<script src="assets/art.js?v=35"></script>
+<script src="assets/landing-plus.js?v=2"></script>
+<script src="assets/home-pages.js?v=1"></script>
+<script src="assets/motion.js?v=1"></script>
 </body>
 </html>

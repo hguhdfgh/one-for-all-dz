@@ -1,0 +1,80 @@
+/* motion.css - shared, GPU-light motion layer for every page (landing, auth, client, admin).
+   Rules: animate transform/opacity only, no blur, pause what is off screen, and on weak devices
+   (html.mo-low, set in <head> and by the frame probe in motion.js) keep the motion but drop the costly paint. */
+
+/* ---------- 1. cost cuts that apply everywhere ---------- */
+.card,.side,.band li,.play,.sbtns button,.cap .chip{backdrop-filter:none;-webkit-backdrop-filter:none}
+.drift{will-change:auto}
+/* sticky bars: a real blur only on desktop pointers; phones get an almost-opaque bar (same look, no per-frame blur) */
+.hd,.top,.mbar,.bnav{backdrop-filter:none;-webkit-backdrop-filter:none}
+.hd{background:color-mix(in srgb,var(--bg) 94%,transparent)}
+.top{background:color-mix(in srgb,var(--bg) 95%,transparent)}
+.mbar,.bnav{background:color-mix(in srgb,var(--solid) 97%,transparent)}
+html.mo-fine:not(.mo-low) .hd,html.mo-fine:not(.mo-low) .top{background:color-mix(in srgb,var(--bg) 82%,transparent);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.modal{backdrop-filter:none;-webkit-backdrop-filter:none}
+#cmdk{backdrop-filter:none;-webkit-backdrop-filter:none;background:rgba(4,17,15,.62)}
+
+/* skeleton shimmers: a moving highlight layer (transform) instead of repainting the gradient every frame */
+@keyframes mo-shim{from{transform:translateX(-100%)}to{transform:translateX(100%)}}
+[dir=rtl] .svc-skel::after,[dir=rtl] .ph::after{animation-direction:reverse}
+.svc-skel{position:relative;overflow:hidden;background:var(--surface-2);animation:none}
+.svc-skel::after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,transparent 25%,color-mix(in srgb,var(--surface) 80%,transparent) 50%,transparent 75%);animation:mo-shim 1.4s linear infinite}
+.ph::after{background-size:100% 100%;animation:none;transform:translateX(-100%)}
+.ph.on::after{animation:mo-shim 2.6s linear infinite}   /* only the slide in front shimmers: one small layer, not one per slide */
+
+/* a loop that starts on an empty box is judged "no visible change" by Chrome and then runs on the main thread forever:
+   start the marquee only once it has its words */
+.mq-t:empty{animation:none}
+
+/* anything inside a box that is off screen stops animating (class set by motion.js) */
+.mo-off,.mo-off *,.mo-off::before,.mo-off::after,.mo-off *::before,.mo-off *::after{animation-play-state:paused!important}
+
+/* ---------- 2. weak devices: same motion, cheaper paint ---------- */
+html.mo-low .hero .aur,html.mo-low .cta,html.mo-low .auth::after{animation:none}   /* big layers + the painted border; small floating shapes keep moving */
+html.mo-low .slide{filter:none}
+html.mo-low .slide:not(.on){opacity:.4}
+html.mo-low .hero::before,html.mo-low .auth::before{-webkit-mask-image:none;mask-image:none;opacity:.5}
+html.mo-low .btn.pri{box-shadow:none}
+html.mo-low .card{box-shadow:0 1px 2px rgba(14,31,21,.06)}
+
+/* ---------- 3. app pages: same motion language as the landing ---------- */
+.btn:active{transform:scale(.97)}
+/* page title: words rise one after another */
+.top h1 .mo-w{display:inline-block;overflow:clip;overflow-clip-margin:.2em;vertical-align:top}
+.top h1 .mo-wi{display:inline-block;animation:mo-up .6s var(--ease-out,cubic-bezier(.16,1,.3,1)) both;animation-delay:calc(var(--i)*.06s)}
+@keyframes mo-up{from{transform:translateY(105%);opacity:0}}
+/* list rows / table rows enter in a short cascade right after a route change */
+.mo-in{animation:mo-rise .45s var(--ease-out,cubic-bezier(.16,1,.3,1)) both;animation-delay:calc(var(--i,0)*.035s)}
+@keyframes mo-rise{from{opacity:0;transform:translateY(10px)}}
+/* rows further down reveal when scrolled into view */
+.mo-rv{opacity:0;transform:translateY(14px);transition:opacity .5s var(--ease-out,ease),transform .5s var(--ease-out,ease)}
+.mo-rv.mo-on{opacity:1;transform:none}
+/* numbers count up */
+.mo-num{font-variant-numeric:tabular-nums}
+/* pointer spotlight on cards (desktop mouse only) */
+.mo-spot{position:relative;isolation:isolate}
+.mo-spot::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:-1;opacity:0;transition:opacity .35s;
+  background:radial-gradient(300px circle at var(--mx,50%) var(--my,50%),color-mix(in srgb,var(--green) 12%,transparent),transparent 65%)}
+.mo-spot:hover::before{opacity:1}
+.kpi.mo-tilt{transition:transform .5s var(--ease-out,ease),box-shadow .3s}
+.kpi.mo-tilt.mo-tilting{transition:transform .12s linear,box-shadow .3s}
+.kpi.mo-tilt:hover{box-shadow:var(--shadow-lg)}
+/* side menu: the active item gets a green rail that grows in */
+.side .nav.on::after{content:"";position:absolute;inset-block:9px;inset-inline-start:0;width:3px;border-radius:3px;background:var(--green);animation:mo-rail .45s var(--ease-out,ease) both}
+@keyframes mo-rail{from{transform:scaleY(0)}}
+/* bottom bar: active tab icon lifts */
+.bnav button.on .ico{transform:translateY(-1px)}
+/* auth screen: the same soft grid + moving light as the landing hero (no blur filter) */
+.auth{position:relative;isolation:isolate;overflow:clip}
+.auth::before{content:"";position:absolute;inset:0;z-index:-2;pointer-events:none;
+  background-image:linear-gradient(color-mix(in srgb,var(--green) 9%,transparent) 1px,transparent 1px),linear-gradient(90deg,color-mix(in srgb,var(--green) 9%,transparent) 1px,transparent 1px);
+  background-size:40px 40px;-webkit-mask-image:radial-gradient(ellipse 60% 55% at 50% 45%,#000 15%,transparent 72%);mask-image:radial-gradient(ellipse 60% 55% at 50% 45%,#000 15%,transparent 72%)}
+.auth::after{content:"";position:absolute;z-index:-1;pointer-events:none;width:min(680px,120vw);aspect-ratio:1;top:-18%;inset-inline-start:-12%;border-radius:50%;
+  background:radial-gradient(closest-side at 35% 40%,rgba(110,229,154,.30),transparent),radial-gradient(closest-side at 70% 65%,rgba(15,170,96,.20),transparent);animation:mo-orbit 24s linear infinite}
+@keyframes mo-orbit{to{transform:rotate(360deg)}}
+
+@media (prefers-reduced-motion:reduce){
+  .top h1 .mo-wi,.mo-in,.side .nav.on::after{animation:none}
+  .mo-rv{opacity:1;transform:none;transition:none}
+  .auth::after,.svc-skel::after,.ph::after{animation:none}
+}

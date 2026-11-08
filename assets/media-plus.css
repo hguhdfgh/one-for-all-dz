@@ -1,0 +1,77 @@
+/* media-plus.css - real photos and logos: about block, payment strip, ads logos, video behind-the-scenes, store brand covers */
+/* home: about us */
+.ab-in{display:grid;grid-template-columns:1.05fr 1fr;gap:48px;align-items:center}
+.ab-art{position:relative}
+.ab-main{display:block;width:100%;aspect-ratio:16/10;object-fit:cover;border-radius:32px;box-shadow:0 40px 80px -40px rgba(11,36,20,.55)}
+.ab-art::before{content:"";position:absolute;inset:-18px 18px 18px -18px;border-radius:36px;background:linear-gradient(140deg,#6BE38F,#15843A);opacity:.18;z-index:-1}
+[dir=rtl] .ab-art::before{inset:-18px -18px 18px 18px}
+.ab-badge{position:absolute;inset-inline-start:18px;bottom:-26px;display:flex;align-items:center;gap:12px;padding:10px 18px 10px 10px;border-radius:999px;background:var(--solid,#fff);border:1px solid var(--stroke,rgba(0,0,0,.08));box-shadow:0 18px 40px -18px rgba(0,0,0,.35)}
+[dir=rtl] .ab-badge{padding:10px 10px 10px 18px}
+.ab-badge img{width:52px;height:52px;border-radius:50%;object-fit:cover;border:3px solid #22B04B}
+.ab-badge span{display:flex;flex-direction:column;line-height:1.25}
+.ab-badge small{color:var(--muted,#5c6b62);font-size:12.5px}
+.ab-tx{display:flex;flex-direction:column;align-items:flex-start;gap:14px}
+.ab-tx .lead{margin:0}
+.ab-ph{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;width:100%;margin-top:8px}
+.ab-ph figure{margin:0;display:flex;flex-direction:column;gap:8px}
+.ab-ph img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:18px;transition:transform .5s var(--ease,ease)}
+.ab-ph figure:hover img{transform:translateY(-4px) scale(1.02)}
+.ab-ph figcaption{font-size:13.5px;font-weight:600}
+@media (max-width:900px){.ab-in{grid-template-columns:1fr;gap:44px}.ab-ph{gap:8px}.ab-ph figcaption{font-size:12px}}
+
+/* payment strip (all pages) */
+.pay-strip{padding:18px 0 30px}
+.pay-in{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;padding:20px 26px;border-radius:26px;background:var(--solid,#fff);border:1px solid var(--stroke,rgba(0,0,0,.08));box-shadow:var(--shadow,0 10px 30px rgba(0,0,0,.06))}
+.pay-t{display:flex;flex-direction:column;gap:4px}
+.pay-t small{color:var(--muted,#5c6b62)}
+.pay-l{display:flex;gap:12px;flex-wrap:wrap}
+.pay-i{display:flex;flex-direction:column;align-items:center;gap:6px;min-width:88px;padding:10px 12px;border-radius:18px;background:#fff;border:1px solid rgba(0,0,0,.06)}
+.pay-i img{height:44px;width:auto;max-width:120px;object-fit:contain}
+.pay-i.wide img{height:44px;border-radius:6px}
+.pay-i small{font-size:12px;font-weight:600;color:#33433a}
+@media (max-width:600px){.pay-in{padding:16px}.pay-l{width:100%;justify-content:space-between}.pay-i{flex:1;min-width:0}}
+
+/* ads: official logos */
+.ad-logo.ad-real img{width:60%;height:60%;object-fit:contain}
+.tiktok .ad-logo.ad-real img{filter:invert(1)}
+
+/* video: behind the scenes */
+.bts-in{display:grid;grid-template-columns:1fr 1.15fr;gap:44px;align-items:center}
+.bts-tx{display:flex;flex-direction:column;align-items:flex-start;gap:12px}
+.bts-tx .lead{margin:0}
+.bts-art{position:relative;padding-bottom:14%}
+.bts-art img{display:block;object-fit:cover;border-radius:26px;box-shadow:0 30px 60px -30px rgba(0,0,0,.55)}
+.bts-art .a{width:86%;aspect-ratio:16/10}
+.bts-art .b{position:absolute;width:48%;aspect-ratio:16/10;inset-inline-end:0;bottom:0;border:5px solid var(--solid,#fff)}
+@media (max-width:860px){.bts-in{grid-template-columns:1fr;gap:26px}}
+
+/* store: brand covers + hero art */
+.sp-cover.sp-brand{display:grid;place-items:center;background:radial-gradient(120% 100% at 30% 0%,#ffffff,#eef7f1)}
+.sp-cover.sp-brand img{width:46%;height:46%;max-width:110px;object-fit:contain;filter:drop-shadow(0 10px 18px rgba(0,0,0,.12))}
+.orbit .st-bg{position:absolute;inset:6%;width:88%;height:88%;object-fit:cover;border-radius:32px;object-position:78% 50%;opacity:.9;z-index:0;pointer-events:none}
+.orbit>.ob,.orbit>.core{z-index:1}
+
+/* video hero: motion badge in place of the plain ring */
+body[data-page=video] .hero .ring.h2r{display:none}
+.mo-badge{position:absolute;left:clamp(-34px,-2vw,-10px);bottom:-18px;z-index:5;width:clamp(118px,11vw,150px);aspect-ratio:1;border-radius:50%;display:grid;place-items:center;text-decoration:none;color:var(--green-ink,#046A40);background:radial-gradient(circle at 50% 50%,rgba(255,255,255,.92) 0 56%,rgba(217,245,229,.9) 57% 100%);box-shadow:0 18px 40px -16px rgba(4,123,74,.45),inset 0 0 0 1px rgba(15,170,96,.18);backdrop-filter:blur(6px);animation:moIn .9s var(--ease-out,ease) .6s both}
+.mo-txt{position:absolute;inset:0;width:100%;height:100%;animation:moSpin 16s linear infinite}
+.mo-txt{direction:ltr}
+.mo-txt text{font-weight:700;font-size:12.5px;fill:currentColor}
+.mo-core{position:relative;width:44%;aspect-ratio:1;border-radius:50%;display:grid;place-items:center;color:#fff;background:linear-gradient(140deg,#1FC070,#047B4A);box-shadow:0 10px 24px -8px rgba(4,123,74,.7);transition:transform .35s var(--ease-out,ease)}
+.mo-core svg{width:42%;height:42%;margin-inline-start:8%}
+[dir=rtl] .mo-core svg{margin-inline-start:0;margin-inline-end:8%;transform:none}
+.mo-wave{position:absolute;inset:0;border-radius:50%;border:2px solid #1FC070;animation:moWave 2.4s ease-out infinite;pointer-events:none}
+.mo-wave.b{animation-delay:1.2s}
+.mo-eq{position:absolute;bottom:17%;display:flex;gap:2px;align-items:flex-end;height:9px}
+.mo-eq i{width:2.5px;height:100%;border-radius:2px;background:currentColor;transform-origin:bottom;animation:moEq 1s ease-in-out infinite}
+.mo-eq i:nth-child(2){animation-delay:-.3s}.mo-eq i:nth-child(3){animation-delay:-.6s}.mo-eq i:nth-child(4){animation-delay:-.15s}
+.mo-badge:hover .mo-core{transform:scale(1.1)}
+.mo-badge:hover .mo-txt{animation-duration:6s}
+@keyframes moSpin{to{transform:rotate(360deg)}}
+@keyframes moWave{0%{transform:scale(1);opacity:.8}100%{transform:scale(1.9);opacity:0}}
+@keyframes moEq{0%,100%{transform:scaleY(.3)}50%{transform:scaleY(1)}}
+@keyframes moIn{from{opacity:0;transform:scale(.6) rotate(-30deg)}to{opacity:1;transform:none}}
+:root[data-theme=dark] .mo-badge{background:radial-gradient(circle,rgba(11,36,20,.92) 0 56%,rgba(15,58,38,.92) 57% 100%)}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]) .mo-badge{background:radial-gradient(circle,rgba(11,36,20,.92) 0 56%,rgba(15,58,38,.92) 57% 100%)}}
+@media (max-width:900px){.mo-badge{width:104px;left:0;bottom:-6px}}
+@media (prefers-reduced-motion:reduce){.mo-txt,.mo-wave,.mo-eq i,.mo-badge{animation:none}}

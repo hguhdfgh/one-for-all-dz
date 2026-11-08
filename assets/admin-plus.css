@@ -1,0 +1,39 @@
+/* admin-plus.css — UI/UX phase 3: menu groups, today hero, tabular numbers, status icons, skeleton, density, bulk bar, undo */
+.navg{font-size:11px;font-weight:700;letter-spacing:.04em;color:var(--faint);padding:14px 12px 4px;text-transform:uppercase}
+.side .brand + .navg{padding-top:6px}
+.num,.kpi b,table.t td,.price,.tdn{font-variant-numeric:tabular-nums}
+/* status = colour + glyph, never colour alone */
+.chip.g>.dot,.chip.w>.dot,.chip.b>.dot{width:auto;height:auto;background:none;border-radius:0;font-size:11px;line-height:1;font-weight:800}
+.chip.g>.dot::before{content:"✓"}.chip.w>.dot::before{content:"!"}.chip.b>.dot::before{content:"✕"}
+/* today hero */
+.today{margin-bottom:14px;border-inline-start:4px solid var(--green)}
+.today .tdh{display:flex;align-items:center;gap:16px}
+.today .tdn{font-size:44px;line-height:1;font-weight:800;color:var(--bad,#D9434F);min-width:56px;text-align:center}
+.today .tdn.ok{color:var(--green)}
+.today .tdt{font-size:18px;display:block;margin-top:2px}
+.today .tdr{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.today .ico{width:16px;height:16px;vertical-align:-3px}
+@media (max-width:560px){.today .tdh{flex-wrap:wrap}.today .tdh>.btn{width:100%}}
+/* skeleton instead of the lone spinner while a page loads */
+#page>.spin:only-child{width:100%;height:260px;margin:0;border:0;border-radius:var(--r,20px);animation:sk 1.2s ease-in-out infinite;
+  background:linear-gradient(var(--surface-2),var(--surface-2)) 0 0/100% 72px no-repeat,linear-gradient(var(--surface-2),var(--surface-2)) 0 92px/100% 72px no-repeat,linear-gradient(var(--surface-2),var(--surface-2)) 0 184px/62% 72px no-repeat}
+@keyframes sk{50%{opacity:.5}}
+@media (prefers-reduced-motion:reduce){#page>.spin:only-child{animation:none}}
+/* density */
+.dense .li{padding:7px 4px}
+.dense table.t th,.dense table.t td{padding:6px 6px}
+.dense .card{padding:13px}
+.dense .grid{gap:10px}
+/* bulk select on orders */
+.bk{flex:none;width:22px;height:22px;border:2px solid var(--stroke,#ccc);border-radius:7px;display:grid;place-items:center;cursor:pointer;position:relative}
+.bk::after{content:"";position:absolute;inset:-11px}
+.bk[aria-checked=true]{background:var(--green);border-color:var(--green)}
+.bk[aria-checked=true]::before{content:"✓";color:#fff;font-size:14px;font-weight:800;line-height:1}
+#bulkbar{position:fixed;z-index:70;inset-inline:12px;bottom:calc(84px + env(safe-area-inset-bottom));max-width:560px;margin:0 auto;display:flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--stroke);border-radius:16px;padding:8px 10px;box-shadow:var(--shadow-lg)}
+#bulkbar select{min-height:40px;flex:1;min-width:0}
+@media (min-width:900px){#bulkbar{bottom:20px}}
+/* undo toast + row being deleted */
+.gone{display:none!important}
+#toast .undo{pointer-events:auto;display:flex;align-items:center;gap:12px;padding:6px 6px 6px 16px}
+#toast .undo button{all:unset;cursor:pointer;font-weight:700;color:var(--green-2,#6EE59A);padding:8px 12px;border-radius:99px;min-height:28px}
+.today .tdb{display:flex;align-items:center;gap:6px;margin-top:4px}.today .tdb .ico{flex:none}

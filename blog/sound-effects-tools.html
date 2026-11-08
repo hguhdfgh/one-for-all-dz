@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<base href="/">
+<title>3 أدوات ساوند إفكت لـ Claude Code · ONE FOR ALL</title>
+<meta name="description" content="Real SFX يقرر وين لازم صوت، Openverse يجيب الصوت الحقيقي، و Earshot يولّد اللي ما لقيتوش. التنصيب والبرومتات.">
+<link rel="canonical" href="https://one-for-all-dz.vercel.app/blog/sound-effects-tools.html">
+<meta name="theme-color" content="#0FAA60">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta property="og:title" content="3 أدوات ساوند إفكت لـ Claude Code · ONE FOR ALL">
+<meta property="og:description" content="Real SFX يقرر وين لازم صوت، Openverse يجيب الصوت الحقيقي، و Earshot يولّد اللي ما لقيتوش. التنصيب والبرومتات.">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/hguhdfgh/media@978f3ae/one-for-all/v4/og-cover.jpg">
+<meta property="og:url" content="https://one-for-all-dz.vercel.app/blog/sound-effects-tools.html">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ar_DZ">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%230FAA60'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script>try{var t=localStorage.getItem('ofa_theme');document.documentElement.dataset.theme=t||'light'}catch(e){document.documentElement.dataset.theme='light'}</script>
+<link rel="stylesheet" href="assets/app.css?v=32">
+<link rel="stylesheet" href="assets/landing.css?v=32">
+<link rel="stylesheet" href="assets/ui.css?v=36">
+<link rel="stylesheet" href="assets/brand.css?v=1">
+<link rel="stylesheet" href="assets/blog.css?v=2">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "3 أدوات ساوند إفكت لـ Claude Code", "description": "Real SFX يقرر وين لازم صوت، Openverse يجيب الصوت الحقيقي، و Earshot يولّد اللي ما لقيتوش. التنصيب والبرومتات.", "datePublished": "2026-11-04", "inLanguage": "ar-DZ", "image": "https://cdn.jsdelivr.net/gh/hguhdfgh/media@978f3ae/one-for-all/v4/og-cover.jpg", "mainEntityOfPage": "https://one-for-all-dz.vercel.app/blog/sound-effects-tools.html", "keywords": "SOUND", "author": {"@type": "Person", "name": "Ishak Laieb"}, "publisher": {"@type": "Organization", "name": "ONE FOR ALL", "url": "https://one-for-all-dz.vercel.app"}}</script>
+</head>
+<body data-page="blog" class="pg-blog">
+<div id="prog"></div><header class="hd" id="hd"></header>
+<main id="top">
+<article class="bl-post" data-slug="sound-effects-tools">
+<div class="crumb"><a href="/">الرئيسية</a> · <a href="/blog/">المدونة</a></div>
+<div class="bl-chips"><span class="bl-tag">ساوند · Claude Code</span><span class="bl-kw" title="الكلمة تاع الفيديو">الكلمة: <b class="ltr">SOUND</b></span></div>
+<h1>3 أدوات ساوند إفكت لـ Claude Code</h1>
+<div class="bl-meta"><span>إسحاق لعيب · Ishak AI</span><span>4 نوفمبر 2026</span></div>
+<p class="lead">هاد الأدوات يخلّو الـ AI تاعك يحوّس، يختار، ويحطّ الساوند إفكت في الفيديو وحدو.</p>
+<p><b>المتطلبات للثلاثة:</b> Claude Code · Python 3.10 ولا أحدث · FFmpeg</p>
+<h2>1️⃣ Real SFX (من عند Clipwing)</h2>
+<p><b>وش تدير:</b> تقرا التايملاين تاعك، تلقى كل لحظة تستحق صوت (woosh, pop, hit...)، ومن بعد تحطّو في الفريم بالضبط.</p>
+<ul><li>صفحة السكيل: <a href="https://clipwing.pro/skills/real-sfx" target="_blank" rel="noopener" class="ltr">https://clipwing.pro/skills/real-sfx</a></li><li>الكود: <a href="https://github.com/Clipwing/skills" target="_blank" rel="noopener" class="ltr">https://github.com/Clipwing/skills</a> (الفولدر <code>skills/real-sfx</code>)</li></ul>
+<p><b>التنصيب — Mac / Linux:</b></p>
+<div class="pr pr-cmd"><div class="pr-hd"><span class="n">TERMINAL</span><b></b><button class="pr-cp" type="button" data-k="cmd"></button></div><pre>git clone https://github.com/Clipwing/skills.git clipwing-skills
+mkdir -p ~/.claude/skills
+cp -R clipwing-skills/skills/real-sfx ~/.claude/skills/</pre></div>
+<p><b>التنصيب — Windows (PowerShell):</b></p>
+<div class="pr pr-cmd"><div class="pr-hd"><span class="n">POWERSHELL</span><b></b><button class="pr-cp" type="button" data-k="cmd"></button></div><pre>git clone https://github.com/Clipwing/skills.git clipwing-skills
+New-Item -ItemType Directory -Force "$HOME\.claude\skills" | Out-Null
+Copy-Item -Recurse "clipwing-skills\skills\real-sfx" "$HOME\.claude\skills\"</pre></div>
+<p>من بعد سكّر Claude Code وعاود حلّو. (على Mac يطلب <code>ffmpeg-full</code> من Homebrew.)</p>
+<div class="bl-ad" data-ad="video"></div>
+<h2>2️⃣ Openverse API</h2>
+<p><b>وش تدير:</b> تعطي للـ AI تاعك أكثر من 5 ملايين ساوند إفكت مجانية بجودة عالية، يحوّس عليهم ويحمّلهم وحدو. ما تحتاجش تنصيب ولا API key للبحث العادي.</p>
+<ul><li>الـ API: <a href="https://api.openverse.org/v1/" target="_blank" rel="noopener" class="ltr">https://api.openverse.org/v1/</a></li><li>مثال (ساوند woosh بليسانس CC0 حر): <a href="https://api.openverse.org/v1/audio/?q=whoosh&amp;license=cc0" target="_blank" rel="noopener" class="ltr">https://api.openverse.org/v1/audio/?q=whoosh&amp;license=cc0</a></li><li>الكود (MIT): <a href="https://github.com/WordPress/openverse" target="_blank" rel="noopener" class="ltr">https://github.com/WordPress/openverse</a></li></ul>
+<p><b>قول لـ Claude هكا:</b></p>
+<div class="pr pr-prompt"><div class="pr-hd"><span class="n">PROMPT</span><b></b><button class="pr-cp" type="button" data-k="prompt"></button></div><pre>Use the Openverse API (https://api.openverse.org/v1/audio/) to find CC0 sound effects for this video: a whoosh for each transition, a soft pop for each caption, and a hit on the title. Download them into a sfx/ folder and list each file with its licence and source link.</pre></div>
+<p>⚠️ ديما شوف الليسانس: CC0 حر 100%، وCC BY لازم تذكر صاحبو.</p>
+<h2>3️⃣ Earshot</h2>
+<p><b>وش تدير:</b> كي ما تلقاش الساوند اللي تحوّس عليه، تولّدلك واحد جديد بالكود. وتقدر حتى تديرلك ساوند كيت كامل للفيديو.</p>
+<ul><li>الكود (MIT): <a href="https://github.com/Leonxlnx/earshot" target="_blank" rel="noopener" class="ltr">https://github.com/Leonxlnx/earshot</a></li></ul>
+<p><b>التنصيب:</b></p>
+<div class="pr pr-cmd"><div class="pr-hd"><span class="n">TERMINAL</span><b></b><button class="pr-cp" type="button" data-k="cmd"></button></div><pre>git clone https://github.com/Leonxlnx/earshot &amp;&amp; cd earshot
+python -m venv .venv
+.venv/bin/python -m pip install torch --index-url https://download.pytorch.org/whl/cpu
+.venv/bin/python -m pip install -e ".[mcp,llm,dev]"
+claude mcp add earshot --scope user -- <span class="bl-ph">/path/to/earshot</span>/.venv/bin/python -m earshot mcp</pre></div>
+<ul><li>على Windows بدّل <code>.venv/bin/python</code> بـ <code>.venv\Scripts\python</code>.</li><li>بدّل <code>/path/to/earshot</code> بالمسار الحقيقي للفولدر عندك.</li><li>أول مرة يحمّل حوالي 1.1 GB تاع موديلات، صبّر عليه.</li></ul>
+<h2>💡 الترتيب اللي نخدم بيه</h2>
+<ol><li><b>Real SFX</b> يقرر وين لازم صوت.</li><li><b>Openverse</b> يجيب الصوت الحقيقي.</li><li><b>Earshot</b> يولّد اللي ما لقيناهش.</li></ol>
+<p class="bl-sign">💚 تابع <b>Ishak AI</b> باش تشوف الفيديو الجاي.</p>
+<div class="bl-share"><button class="btn" id="shareBtn" type="button">شارك المقال</button><a class="btn ghost" href="/blog/">كل المقالات</a></div>
+<div class="bl-ad" data-ad="all"></div>
+<section class="bl-rel"><h2>مقالات أخرى تفيدك</h2><div class="bl-grid sm" id="related"></div></section>
+</article>
+</main>
+<footer id="ft"></footer>
+<script src="assets/blog-posts.js?v=2"></script>
+<script src="assets/blog.js?v=2"></script>
+<script src="assets/brand.js?v=36"></script>
+</body>
+</html>

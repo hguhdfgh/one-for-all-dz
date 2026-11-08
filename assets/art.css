@@ -1,0 +1,54 @@
+/* ---------- Canva artwork tiles ---------- */
+.art{display:block;position:relative;overflow:hidden;border-radius:27%;width:46%;max-width:150px;aspect-ratio:1;box-shadow:0 14px 34px rgba(21,132,58,.28);transition:transform .6s var(--ease)}
+.art img,.pc .cover .art img{height:auto;position:absolute;top:50%;left:50%;width:158%;max-width:none;aspect-ratio:1;object-fit:cover;translate:-50% -50%}
+.pc:hover .cover .art{transform:translateY(-4px) rotate(-3deg) scale(1.05)}
+.pc .cover img{transition:transform .9s var(--ease)}
+.pc:hover .cover .art img{transform:none}
+.ph-ic:has(.art){width:auto;height:auto;background:none;border:0;border-radius:0;margin-bottom:60px}
+.ph-ic .art{width:92px;box-shadow:0 12px 30px rgba(0,0,0,.35)}
+/* fix: .side (admin sidebar) collided with the band list items */
+.band li.side{position:static;height:auto;overflow:visible;flex-direction:row;align-items:center;gap:10px;padding:12px 16px;border-inline-end:0;display:flex}
+
+/* ---------- lighter + smoother motion ---------- */
+.js .rv{transform:translateY(16px);transition:opacity .55s var(--ease-out),transform .6s var(--ease-out);transition-delay:calc(var(--d,0s)*.6)}
+.js .rv.zoom{transform:scale(.975)}
+.js .rv.side{transform:translateX(-16px)}
+[dir=rtl].js .rv.side{transform:translateX(16px)}
+.js .rv.shown{transform:none}
+.hi{animation-duration:.65s}
+.mock .m1,.mock .m2,.mock .m3{animation-duration:.7s}
+.drift{animation-duration:30s;will-change:transform}
+.drift.b{animation-duration:38s}
+/* blur is the costliest paint: keep it on the sticky header only */
+.card,.band li,.play,.sbtns button,.cap .chip{backdrop-filter:none;-webkit-backdrop-filter:none}
+.hd{backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.pc,.slide{contain:layout paint}
+#how,#faq{content-visibility:auto;contain-intrinsic-size:auto 560px}
+@media (max-width:760px){.drift,.mock .float{animation:none}.play::before{animation:none}}
+@media (prefers-reduced-motion:reduce){.drift,.mock .float,.play::before{animation:none}}
+
+/* ---------- theme toggle ---------- */
+#thm{flex:none}
+#thm svg{transition:transform .5s var(--ease),opacity .25s}
+#thm:active svg{transform:rotate(40deg) scale(.85)}
+html.theme-anim body,html.theme-anim .card,html.theme-anim .hd,html.theme-anim .btn,html.theme-anim .chip,html.theme-anim .mbar,html.theme-anim .drawer,html.theme-anim .in,html.theme-anim .pill,html.theme-anim details.q{transition:background-color .35s ease,color .35s ease,border-color .35s ease,box-shadow .35s ease!important}
+@media (max-width:480px){.hd .brand small{display:none}.hd .brand b{white-space:nowrap;font-size:13px}.hd .wrap{gap:8px}}
+
+/* ---------- brand imagery ---------- */
+.art.n{border-radius:0;overflow:visible;box-shadow:none;width:52%;max-width:170px;background:none}
+.art.n img{position:static;translate:none;width:100%;height:auto;filter:drop-shadow(0 14px 18px rgba(21,132,58,.26))}
+.ph-ic .art.n{width:96px}.ph-ic .art.n img{filter:drop-shadow(0 12px 16px rgba(0,0,0,.35))}
+:root{--hero-img:url(https://cdn.jsdelivr.net/gh/hguhdfgh/media@9ca1c13/one-for-all/hero-light.webp)}
+[data-theme=dark]{--hero-img:url(https://cdn.jsdelivr.net/gh/hguhdfgh/media@9ca1c13/one-for-all/hero-dark.webp)}
+.mock{isolation:isolate}
+.mock::before{content:"";position:absolute;inset:-8% -10%;z-index:-1;background:var(--hero-img) center/contain no-repeat;mix-blend-mode:multiply;opacity:.9;pointer-events:none}
+[data-theme=dark] .mock::before{mix-blend-mode:screen;opacity:.75;-webkit-mask-image:radial-gradient(closest-side,#000 62%,transparent);mask-image:radial-gradient(closest-side,#000 62%,transparent)}
+.cta{isolation:isolate}
+.cta::after{content:"";position:absolute;inset-inline-end:-2%;bottom:-8%;width:min(34%,320px);aspect-ratio:4/3;z-index:-1;background:url(https://cdn.jsdelivr.net/gh/hguhdfgh/media@9ca1c13/one-for-all/cta.webp) center/contain no-repeat;mix-blend-mode:multiply;opacity:.85;pointer-events:none}
+[data-theme=dark] .cta::after{display:none}
+@media (max-width:760px){.cta::after{display:none}}
+.mock::before{-webkit-mask-image:radial-gradient(ellipse 50% 50% at 50% 50%,#000 70%,transparent 100%);mask-image:radial-gradient(ellipse 50% 50% at 50% 50%,#000 70%,transparent 100%)}
+.cta::after{-webkit-mask-image:radial-gradient(ellipse 50% 50% at 50% 50%,#000 52%,transparent 98%);mask-image:radial-gradient(ellipse 50% 50% at 50% 50%,#000 52%,transparent 98%)}
+.pc .cover .art.n{width:min(46%,150px);aspect-ratio:1;border-radius:0;overflow:visible;background:none;box-shadow:none}
+.pc .cover .art.n img{position:static;translate:none;width:100%;height:100%;max-width:100%;object-fit:contain}
+.pc:hover .cover .art.n{transform:translateY(-4px) scale(1.05)}
