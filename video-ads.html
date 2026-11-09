@@ -393,11 +393,29 @@ var TYPES=[
   {id:'corp',t:'فيديو شركة / براند',s:'تقديم مؤسستك ولا خدمتك'},
   {id:'help',t:'ما عرفتش، نصحوني',s:'نسمعو لمشروعك ونقترحو'}];
 /* AI cinematic: add file names (uploaded next to the others) to n and the tab appears first */
-var REELS={ai:{l:'AI سينمائي',n:['ai-7','ai-4','ai-1','ai-2','ai-8','ai-5','ai-6','ai-3']},motion:{l:'موشن غرافيكس',n:['motion-5','motion-2','motion-6','motion-9','motion-1','motion-3','motion-8','motion-7','motion-4']},
-  ecom:{l:'فيديوهات منتجات',n:['product-4','product-1','product-6','product-2','product-5','product-3']},
-  corp:{l:'فيديوهات شركات',n:['corp-2','corp-3','corp-1']}};
+var REELS={
+  ai:{l:'AI سينمائي',n:['ai-7','ai-4','ai-1','ai-2','ai-8','ai-5','ai-6','ai-3','ai-9','ai-10','ai-11','ai-12','ai-13','ai-14']},
+  ecom:{l:'فيديوهات منتجات',n:['product-4','product-1','product-6','product-2','product-5','product-3','product-7','product-8','product-9','product-10']},
+  motion:{l:'موشن غرافيكس',n:['motion-5','motion-2','motion-6','motion-9','motion-1','motion-3','motion-8','motion-7','motion-4','motion-10','motion-11','motion-12','motion-13','motion-14','motion-15']},
+  corp:{l:'فيديوهات شركات',n:['corp-2','corp-3','corp-1','corp-4','corp-5','corp-6']}
+};
 var LQ={'ai-1':'f2cbc8,d38681,6a4846,968f8d','ai-2':'555150,3a3939,393e40,0a1012','ai-3':'b58989,a37f76,5c678e,38548c','ai-4':'86604e,805346,7e5444,89684a','ai-5':'888278,74655a,7a5c5d,5e5055','ai-6':'979693,beb8ac,b5ac97,84857b','ai-7':'2e3a46,292b2d,1e2323,191f21','ai-8':'6cadf3,527bba,3b5786,2c456e','corp-1':'585d6e,313130,1c2123,262b2e','corp-2':'a7a6a0,867f77,6f6356,8b847b','corp-3':'2a2425,554747,312d2e,191b1d','motion-1':'222220,37352f,373228,181917','motion-2':'1f273e,4b476b,3d3763,3c365f','motion-3':'c5c5c5,b7b7b7,a3a3a3,bfbfbf','motion-4':'b4ab90,c8ba97,d4c7a8,aca389','motion-5':'51454b,876168,b19da2,726f77','motion-6':'a7a78c,9a8966,b6a881,aea78f','motion-7':'dcd8d2,e0dbd5,c7b4a6,e0ddd7','motion-8':'e5e1db,e0ddd8,dedad5,e4ddd4','motion-9':'080f0b,293c30,06160d,08110c','product-1':'7d7d78,534742,494946,282e2f','product-2':'928372,a79281,947a68,836851','product-3':'a5a299,686456,59554a,928675','product-4':'8a8777,bdb4a0,bab3a6,908f83','product-5':'4c4341,2e2d2d,2d3234,070c0e','product-6':'413e3f,5d5d6c,5c5e6a,383f55'};
-var base=V5;function src(n,ext){return base+n+ext}
+var base=V5;
+function isNew(n){
+  var m=n.match(/^([a-z]+)-(\d+)$/);
+  if(!m) return false;
+  var p=m[1], num=parseInt(m[2],10);
+  if(p==='ai') return num>=9;
+  if(p==='corp') return num>=4;
+  if(p==='motion') return num>=10;
+  if(p==='product') return num>=7;
+  return false;
+}
+function src(n,ext){
+  if(ext==='.webp') return 'videos/'+n+'.webp';
+  if(isNew(n)) return 'videos/'+n+'.mp4';
+  return base+n+ext;
+}
 function lq(n){return LQ[n]?'linear-gradient(#'+LQ[n].split(',').join(',#')+')':''}
 
 /* ---------- WhatsApp sheet ---------- */
