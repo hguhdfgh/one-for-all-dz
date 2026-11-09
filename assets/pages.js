@@ -142,6 +142,22 @@ function sectionTabs(list) {
 function offerCards(cats) {
   const list = PG.products.filter(p => cats.includes(p.category) && p.type !== 'digital');
   if (!list.length) return '';
+  if (PAGE === 'video') {
+    const p = list.find(x => x.slug === 'creative_ads') || list[0];
+    const vs = (p.product_variants || []).filter(v => v.active).sort((a, b) => a.sort - b.sort);
+    if (vs.length) {
+      return `<section id="offers"><div class="wrap"><div class="center rv" style="margin-bottom:28px"><span class="eyebrow">${ic('cash')} ${esc(t('pricing_t'))}</span><h2 class="h2">${esc(t('pricing_t'))}</h2><p class="lead">${esc(t('pricing_s'))}</p></div>
+        <div class="grid g3">${vs.map((v, i) => {
+          const m = v.meta || {}, badge = m.badge, per = m.per_video, pr = v.price;
+          return `<div class="card pc rv ${badge ? 'feat' : ''}" style="--d:${(i % 3) * 0.08}s;position:relative;display:flex;flex-direction:column">
+            ${badge ? `<span class="chip g" style="position:absolute;top:14px;right:14px;font-weight:700;z-index:2">${esc(badge)}</span>` : ''}
+            <div class="cover" style="height:110px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,rgba(15,170,96,.15),rgba(43,217,124,.05))">${ic('film', 'ico" style="width:36px;height:36px')}</div>
+            <div class="body" style="display:flex;flex-direction:column;flex:1"><h3 style="margin:0;font-size:20px">${esc(tr(v.name))}</h3><p class="small muted" style="margin:6px 0 14px;flex:1">${esc(m.description || tr(p.description))}</p>
+            <div class="row between" style="margin-top:auto"><span class="price">${pr ? money(pr) : t('on_quote')}</span>${per ? `<span class="tiny muted ltr">${per.toLocaleString('fr-FR')} DA / vid</span>` : ''}</div>
+            <div class="actions" style="margin-top:14px"><a class="btn pri" href="${waLink(waMsg(`${tr(p.name)} · ${tr(v.name)} (${money(pr)})`))}" target="_blank" rel="noopener">${ic('wa')} ${esc(t('wa_order'))}</a><a class="btn ghost icon" href="app.html#/p/${encodeURIComponent(p.slug)}/${v.id}" title="${esc(t('details'))}">${ic('arrow', 'ico flip go')}</a></div></div></div>`;
+        }).join('')}</div></div></section>`;
+    }
+  }
   return `<section id="offers"><div class="wrap"><div class="center rv" style="margin-bottom:28px"><span class="eyebrow">${ic('cash')} ${esc(t('pricing_t'))}</span><h2 class="h2">${esc(t('pricing_t'))}</h2><p class="lead">${esc(t('pricing_s'))}</p></div>
     <div class="grid g3">${list.map((p, i) => {
       const vs = (p.product_variants || []).filter(v => v.active); const ps = vs.map(v => v.price).filter(x => x > 0); const pr = ps.length ? Math.min(...ps) : null; const c = p.cover_url || (p.gallery || [])[0];
