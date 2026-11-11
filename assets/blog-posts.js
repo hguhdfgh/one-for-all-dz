@@ -1,6 +1,14 @@
 /* blog-posts.js - list of blog posts, newest first (used for "related posts"). Add new posts at the top. */
 window.BLOG_POSTS = [
 {
+"slug": "best-30-claude-plugins",
+"kw": "30",
+"tag": "Plugins · Claude",
+"title": "أفضل 30 plugin لـ Claude على GitHub، مرتّبة حسب عملك",
+"desc": "30 plugin ومهارة لـ Claude في خمسة أقسام: البرمجة، البحث والفهم، توفير الـ tokens، التصميم، والكتابة والفيديو.",
+"cover": "أفضل 30 plugin<br>لـ Claude"
+},
+{
 "slug": "ai-agent",
 "kw": "AGENT",
 "tag": "AI Agent · أوتوميشن",
