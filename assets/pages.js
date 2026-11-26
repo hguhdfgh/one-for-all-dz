@@ -195,7 +195,7 @@ function slideHTML(x, i) {
   let media = '', play = '', extra = '';
   if (yt) { media = `<img src="${esc(x.poster_url || `https://i.ytimg.com/vi/${yt}/hqdefault.jpg`)}" alt="" loading="lazy">`; play = `<button class="play" data-a="yt" data-yt="${yt}" aria-label="${t('play_sound')}">${ic('play')}</button>`; }
   else if (x.kind === 'video') {
-    media = `<video data-src="${esc(url)}" ${x.poster_url ? `poster="${esc(x.poster_url)}"` : ''} muted playsinline preload="none" disablepictureinpicture></video>`;
+    media = `<video data-src="${esc(url)}" ${x.poster_url ? `poster="${esc(x.poster_url)}"` : ''} muted playsinline preload="none" disablepictureinpicture controlslist="nodownload noremoteplayback" oncontextmenu="return false"></video>`;
     play = `<button class="play" data-a="play" aria-label="${t('play_sound')}">${ic('play')}</button>`;
     extra = `<span class="rl-bar" aria-hidden="true"><i></i></span><button class="rl-hint" data-a="snd">${ic('volx')}<span>${esc(t('tap_sound'))}</span></button>`
       + `<div class="rl-vol"><div class="rl-rail" role="slider" tabindex="0" aria-orientation="vertical" aria-valuemin="0" aria-valuemax="100" aria-label="${esc(t('vol_lbl'))}"><i class="rl-fill"></i><b class="rl-knob"></b><span class="rl-pct"></span></div>`
@@ -376,7 +376,7 @@ function heroStack(keys) {
   const firsts = keys.map(k => ({ k, x: sectionItems(k)[0] })).slice(0, 3);
   box.innerHTML = `<div class="fan">${firsts.map((f, i) => {
     const x = f.x, yt = x && ytId(x.media_url), poster = x && (x.poster_url || (yt ? `https://i.ytimg.com/vi/${yt}/hqdefault.jpg` : x.kind === 'image' ? x.media_url : ''));
-    const vid = x && x.kind === 'video' && !yt && !poster ? `<video src="${esc(x.media_url)}#t=0.5" muted playsinline preload="metadata"></video>` : '';
+    const vid = x && x.kind === 'video' && !yt && !poster ? `<video src="${esc(x.media_url)}#t=0.5" muted playsinline preload="metadata" disablepictureinpicture controlslist="nodownload noremoteplayback" oncontextmenu="return false"></video>` : '';
     return `<a class="ph-card c${i}" href="#${f.k}" style="--i:${i}">${poster ? `<img src="${esc(poster)}" alt="" loading="lazy">` : vid || `<span class="ph-ic">${ic('play')}</span>`}<span class="lbl">${esc(txt(pc().sections[f.k].title))}</span></a>`;
   }).join('')}</div>`;
 }
